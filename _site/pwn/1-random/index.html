@@ -1,0 +1,623 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>pwnable.kr - random - aidenpearce369</title>
+<meta name="description" content="A challenge related to vulnerability in rand() function in C ">
+
+
+  <meta name="author" content="Monish Kumar">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="aidenpearce369">
+<meta property="og:title" content="pwnable.kr - random">
+<meta property="og:url" content="http://localhost:4000/pwn/1-random/">
+
+
+  <meta property="og:description" content="A challenge related to vulnerability in rand() function in C ">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/pwn/pwn.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-06-05T00:00:00+05:30">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/pwn/1-random/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Monish Kumar",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="J3MnMF94zaZhTUoNtUiRt9cKsr7hiMyTxEdAvQ3GfmY" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="aidenpearce369 Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+<!-- favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/site_data/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/site_data/favicon-16x16.png">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          aidenpearce369
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/pwn">Pwn Challenges</a>
+            </li><li class="masthead__menu-item">
+              <a href="/binexp">Binary Exploitation</a>
+            </li><li class="masthead__menu-item">
+              <a href="/expdev">Exploit Development</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories">All Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/site_data/avatar.png" alt="Monish Kumar" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Monish Kumar</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Security Analyst and Youtuber</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Chennai, India</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:driftmonianonymous@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://twitter.com/aidenpearce369" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/aidenmonish/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/aidenpearce369" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://youtube.com/c/ExploitEverything" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i><span class="label">Youtube</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="pwnable.kr - random">
+    <meta itemprop="description" content="Lets connect to the server">
+    <meta itemprop="datePublished" content="2021-06-05T00:00:00+05:30">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">pwnable.kr - random
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  4 minute read
+
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Lets connect to the server</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">random</span><span class="o">&gt;</span> <span class="n">ssh</span> <span class="n">random</span><span class="err">@</span><span class="mi">128</span><span class="p">.</span><span class="mi">61</span><span class="p">.</span><span class="mi">240</span><span class="p">.</span><span class="mi">205</span> <span class="o">-</span><span class="n">p</span> <span class="mi">2222</span>
+<span class="n">random</span><span class="err">@</span><span class="mi">128</span><span class="p">.</span><span class="mi">61</span><span class="p">.</span><span class="mi">240</span><span class="p">.</span><span class="mi">205</span><span class="err">'</span><span class="n">s</span> <span class="n">password</span><span class="o">:</span>
+ <span class="n">____</span>  <span class="n">__</span>    <span class="n">__</span>  <span class="n">____</span>    <span class="n">____</span>  <span class="n">____</span>   <span class="n">_</span>        <span class="n">___</span>      <span class="n">__</span>  <span class="n">_</span>  <span class="n">____</span>
+<span class="o">|</span>    <span class="err">\</span><span class="o">|</span>  <span class="o">|</span><span class="n">__</span><span class="o">|</span>  <span class="o">||</span>    <span class="err">\</span>  <span class="o">/</span>    <span class="o">||</span>    <span class="err">\</span> <span class="o">|</span> <span class="o">|</span>      <span class="o">/</span>  <span class="n">_</span><span class="p">]</span>    <span class="o">|</span>  <span class="o">|/</span> <span class="p">]</span><span class="o">|</span>    \
+<span class="o">|</span>  <span class="n">o</span>  <span class="p">)</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">||</span>  <span class="n">_</span>  <span class="o">||</span>  <span class="n">o</span>  <span class="o">||</span>  <span class="n">o</span>  <span class="p">)</span><span class="o">|</span> <span class="o">|</span>     <span class="o">/</span>  <span class="p">[</span><span class="n">_</span>     <span class="o">|</span>  <span class="err">'</span> <span class="o">/</span> <span class="o">|</span>  <span class="n">D</span>  <span class="p">)</span>
+<span class="o">|</span>   <span class="n">_</span><span class="o">/|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">||</span>  <span class="o">|</span>  <span class="o">||</span>     <span class="o">||</span>     <span class="o">||</span> <span class="o">|</span><span class="n">___</span> <span class="o">|</span>    <span class="n">_</span><span class="p">]</span>    <span class="o">|</span>    <span class="err">\</span> <span class="o">|</span>    <span class="o">/</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="err">`</span>  <span class="err">'</span>  <span class="o">||</span>  <span class="o">|</span>  <span class="o">||</span>  <span class="n">_</span>  <span class="o">||</span>  <span class="n">O</span>  <span class="o">||</span>     <span class="o">||</span>   <span class="p">[</span><span class="n">_</span>  <span class="n">__</span> <span class="o">|</span>     <span class="err">\</span><span class="o">|</span>    \
+<span class="o">|</span>  <span class="o">|</span>   <span class="err">\</span>      <span class="o">/</span> <span class="o">|</span>  <span class="o">|</span>  <span class="o">||</span>  <span class="o">|</span>  <span class="o">||</span>     <span class="o">||</span>     <span class="o">||</span>     <span class="o">||</span>  <span class="o">||</span>  <span class="p">.</span>  <span class="o">||</span>  <span class="p">.</span>  \
+<span class="o">|</span><span class="n">__</span><span class="o">|</span>    <span class="err">\</span><span class="n">_</span><span class="o">/</span><span class="err">\</span><span class="n">_</span><span class="o">/</span>  <span class="o">|</span><span class="n">__</span><span class="o">|</span><span class="n">__</span><span class="o">||</span><span class="n">__</span><span class="o">|</span><span class="n">__</span><span class="o">||</span><span class="n">_____</span><span class="o">||</span><span class="n">_____</span><span class="o">||</span><span class="n">_____</span><span class="o">||</span><span class="n">__</span><span class="o">||</span><span class="n">__</span><span class="o">|</span><span class="err">\</span><span class="n">_</span><span class="o">||</span><span class="n">__</span><span class="o">|</span><span class="err">\</span><span class="n">_</span><span class="o">|</span>
+
+<span class="o">-</span> <span class="n">Site</span> <span class="n">admin</span> <span class="o">:</span> <span class="n">daehee87</span><span class="err">@</span><span class="n">gatech</span><span class="p">.</span><span class="n">edu</span>
+<span class="o">-</span> <span class="n">IRC</span> <span class="o">:</span> <span class="n">irc</span><span class="p">.</span><span class="n">netgarage</span><span class="p">.</span><span class="n">org</span><span class="o">:</span><span class="mi">6667</span> <span class="o">/</span> <span class="err">#</span><span class="n">pwnable</span><span class="p">.</span><span class="n">kr</span>
+<span class="o">-</span> <span class="n">Simply</span> <span class="n">type</span> <span class="s">"irssi"</span> <span class="n">command</span> <span class="n">to</span> <span class="n">join</span> <span class="n">IRC</span> <span class="n">now</span>
+<span class="o">-</span> <span class="n">files</span> <span class="n">under</span> <span class="o">/</span><span class="n">tmp</span> <span class="n">can</span> <span class="n">be</span> <span class="n">erased</span> <span class="n">anytime</span><span class="p">.</span> <span class="n">make</span> <span class="n">your</span> <span class="n">directory</span> <span class="n">under</span> <span class="o">/</span><span class="n">tmp</span>
+<span class="o">-</span> <span class="n">to</span> <span class="n">use</span> <span class="n">peda</span><span class="p">,</span> <span class="n">issue</span> <span class="err">`</span><span class="n">source</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">peda</span><span class="o">/</span><span class="n">peda</span><span class="p">.</span><span class="n">py</span><span class="err">`</span> <span class="n">in</span> <span class="n">gdb</span> <span class="n">terminal</span>
+<span class="n">You</span> <span class="n">have</span> <span class="n">new</span> <span class="n">mail</span><span class="p">.</span>
+<span class="n">Last</span> <span class="n">login</span><span class="o">:</span> <span class="n">Fri</span> <span class="n">Jun</span>  <span class="mi">4</span> <span class="mi">17</span><span class="o">:</span><span class="mi">29</span><span class="o">:</span><span class="mi">35</span> <span class="mi">2021</span> <span class="n">from</span> <span class="mi">82</span><span class="p">.</span><span class="mi">196</span><span class="p">.</span><span class="mi">111</span><span class="p">.</span><span class="mi">219</span>
+<span class="n">random</span><span class="err">@</span><span class="n">pwnable</span><span class="o">:~</span><span class="err">$</span>
+</code></pre></div></div>
+
+<p>Lets list the files using <code class="language-plaintext highlighter-rouge">ls -la</code>,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">random</span><span class="err">@</span><span class="n">pwnable</span><span class="o">:~</span><span class="err">$</span> <span class="n">ls</span> <span class="o">-</span><span class="n">la</span>
+<span class="n">total</span> <span class="mi">40</span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">x</span><span class="o">---</span>   <span class="mi">5</span> <span class="n">root</span>       <span class="n">random</span> <span class="mi">4096</span> <span class="n">Oct</span> <span class="mi">23</span>  <span class="mi">2016</span> <span class="p">.</span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span> <span class="mi">115</span> <span class="n">root</span>       <span class="n">root</span>   <span class="mi">4096</span> <span class="n">Dec</span> <span class="mi">22</span> <span class="mi">08</span><span class="o">:</span><span class="mi">10</span> <span class="p">..</span>
+<span class="n">d</span><span class="o">---------</span>   <span class="mi">2</span> <span class="n">root</span>       <span class="n">root</span>   <span class="mi">4096</span> <span class="n">Jun</span> <span class="mi">30</span>  <span class="mi">2014</span> <span class="p">.</span><span class="n">bash_history</span>
+<span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">-----</span>   <span class="mi">1</span> <span class="n">random_pwn</span> <span class="n">root</span>     <span class="mi">49</span> <span class="n">Jun</span> <span class="mi">30</span>  <span class="mi">2014</span> <span class="n">flag</span>
+<span class="n">dr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>   <span class="mi">2</span> <span class="n">root</span>       <span class="n">root</span>   <span class="mi">4096</span> <span class="n">Aug</span> <span class="mi">20</span>  <span class="mi">2014</span> <span class="p">.</span><span class="n">irssi</span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>   <span class="mi">2</span> <span class="n">root</span>       <span class="n">root</span>   <span class="mi">4096</span> <span class="n">Oct</span> <span class="mi">23</span>  <span class="mi">2016</span> <span class="p">.</span><span class="n">pwntools</span><span class="o">-</span><span class="n">cache</span>
+<span class="o">-</span><span class="n">r</span><span class="o">-</span><span class="n">sr</span><span class="o">-</span><span class="n">x</span><span class="o">---</span>   <span class="mi">1</span> <span class="n">random_pwn</span> <span class="n">random</span> <span class="mi">8538</span> <span class="n">Jun</span> <span class="mi">30</span>  <span class="mi">2014</span> <span class="n">random</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span>   <span class="mi">1</span> <span class="n">root</span>       <span class="n">root</span>    <span class="mi">301</span> <span class="n">Jun</span> <span class="mi">30</span>  <span class="mi">2014</span> <span class="n">random</span><span class="p">.</span><span class="n">c</span>
+</code></pre></div></div>
+
+<p>As usual there are some privilege restrictions to access the <code class="language-plaintext highlighter-rouge">flag</code>,we have to read it through our binary</p>
+
+<p>Lets analyze the file type of our binary using <code class="language-plaintext highlighter-rouge">file</code> command,</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">random</span><span class="err">@</span><span class="n">pwnable</span><span class="o">:~</span><span class="err">$</span> <span class="n">file</span> <span class="n">random</span>
+<span class="n">random</span><span class="o">:</span> <span class="n">setuid</span> <span class="n">ELF</span> <span class="mi">64</span><span class="o">-</span><span class="n">bit</span> <span class="n">LSB</span> <span class="n">executable</span><span class="p">,</span> <span class="n">x86</span><span class="o">-</span><span class="mi">64</span><span class="p">,</span> <span class="n">version</span> <span class="mi">1</span> <span class="p">(</span><span class="n">SYSV</span><span class="p">),</span> <span class="n">dynamically</span> <span class="n">linked</span><span class="p">,</span> <span class="n">interpreter</span> <span class="o">/</span><span class="n">lib64</span><span class="o">/</span><span class="n">l</span><span class="p">,</span> <span class="k">for</span> <span class="n">GNU</span><span class="o">/</span><span class="n">Linux</span> <span class="mi">2</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">24</span><span class="p">,</span> <span class="n">BuildID</span><span class="p">[</span><span class="n">sha1</span><span class="p">]</span><span class="o">=</span><span class="n">f4eac0a1434a84aef72dfabfc1f889e6f6f73023</span><span class="p">,</span> <span class="n">not</span> <span class="n">stripped</span>
+</code></pre></div></div>
+
+<p>So it is a <code class="language-plaintext highlighter-rouge">not stripped</code> binary</p>
+
+<p>Lets view the source code of the binary,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">random</span><span class="err">@</span><span class="n">pwnable</span><span class="o">:~</span><span class="err">$</span> <span class="n">cat</span> <span class="n">random</span><span class="p">.</span><span class="n">c</span>
+<span class="cp">#include &lt;stdio.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+	<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">random</span><span class="p">;</span>
+	<span class="n">random</span> <span class="o">=</span> <span class="n">rand</span><span class="p">();</span>	<span class="c1">// random value!</span>
+
+	<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">key</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+	<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">key</span><span class="p">);</span>
+
+	<span class="k">if</span><span class="p">(</span> <span class="p">(</span><span class="n">key</span> <span class="o">^</span> <span class="n">random</span><span class="p">)</span> <span class="o">==</span> <span class="mh">0xdeadbeef</span> <span class="p">){</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"Good!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="n">system</span><span class="p">(</span><span class="s">"/bin/cat flag"</span><span class="p">);</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="n">printf</span><span class="p">(</span><span class="s">"Wrong, maybe you should try 2^32 cases.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Lets try running our binary,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">random</span><span class="err">@</span><span class="n">pwnable</span><span class="o">:~</span><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">random</span>
+<span class="mi">12</span>
+<span class="n">Wrong</span><span class="p">,</span> <span class="n">maybe</span> <span class="n">you</span> <span class="n">should</span> <span class="n">try</span> <span class="mi">2</span><span class="o">^</span><span class="mi">32</span> <span class="n">cases</span><span class="p">.</span>
+<span class="n">random</span><span class="err">@</span><span class="n">pwnable</span><span class="o">:~</span><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">random</span>
+<span class="mi">1234</span>
+<span class="n">Wrong</span><span class="p">,</span> <span class="n">maybe</span> <span class="n">you</span> <span class="n">should</span> <span class="n">try</span> <span class="mi">2</span><span class="o">^</span><span class="mi">32</span> <span class="n">cases</span><span class="p">.</span>
+<span class="n">random</span><span class="err">@</span><span class="n">pwnable</span><span class="o">:~</span><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">random</span>
+<span class="mi">3735928559</span>
+<span class="n">Wrong</span><span class="p">,</span> <span class="n">maybe</span> <span class="n">you</span> <span class="n">should</span> <span class="n">try</span> <span class="mi">2</span><span class="o">^</span><span class="mi">32</span> <span class="n">cases</span><span class="p">.</span>
+</code></pre></div></div>
+
+<p>So its expecting a different input</p>
+
+<p>To bypass this we need to find that <code class="language-plaintext highlighter-rouge">rand()</code> is producing random output or fixed one</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">random</span><span class="o">&gt;</span> <span class="n">cat</span> <span class="n">test</span><span class="p">.</span><span class="n">c</span>
+<span class="cp">#include &lt;stdio.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+	<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">random</span><span class="p">;</span>
+	<span class="n">random</span> <span class="o">=</span> <span class="n">rand</span><span class="p">();</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"Random is %d"</span><span class="p">,</span><span class="n">random</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">random</span><span class="o">&gt;</span> <span class="n">gcc</span> <span class="o">-</span><span class="n">o</span> <span class="n">test</span> <span class="n">test</span><span class="p">.</span><span class="n">c</span>
+<span class="n">test</span><span class="p">.</span><span class="n">c</span><span class="o">:</span> <span class="n">In</span> <span class="n">function</span> <span class="err">‘</span><span class="n">main</span><span class="err">’</span><span class="o">:</span>
+<span class="n">test</span><span class="p">.</span><span class="n">c</span><span class="o">:</span><span class="mi">5</span><span class="o">:</span><span class="mi">11</span><span class="o">:</span> <span class="n">warning</span><span class="o">:</span> <span class="n">implicit</span> <span class="n">declaration</span> <span class="n">of</span> <span class="n">function</span> <span class="err">‘</span><span class="n">rand</span><span class="err">’</span> <span class="p">[</span><span class="o">-</span><span class="n">Wimplicit</span><span class="o">-</span><span class="n">function</span><span class="o">-</span><span class="n">declaration</span><span class="p">]</span>
+    <span class="mi">5</span> <span class="o">|</span>  <span class="n">random</span> <span class="o">=</span> <span class="n">rand</span><span class="p">();</span>
+      <span class="o">|</span>           <span class="o">^~~~</span>
+<span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">random</span><span class="o">&gt;</span> <span class="p">.</span><span class="o">/</span><span class="n">test</span>
+<span class="n">Random</span> <span class="n">is</span> <span class="mi">1804289383</span>                                                                              
+<span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">random</span><span class="o">&gt;</span> <span class="p">.</span><span class="o">/</span><span class="n">test</span>
+<span class="n">Random</span> <span class="n">is</span> <span class="mi">1804289383</span>                                                                              
+<span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">random</span><span class="o">&gt;</span> <span class="p">.</span><span class="o">/</span><span class="n">test</span>
+<span class="n">Random</span> <span class="n">is</span> <span class="mi">1804289383</span>                                                                               
+<span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">random</span><span class="o">&gt;</span> <span class="p">.</span><span class="o">/</span><span class="n">test</span>
+<span class="n">Random</span> <span class="n">is</span> <span class="mi">1804289383</span>                                                                               
+<span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">random</span><span class="o">&gt;</span> <span class="p">.</span><span class="o">/</span><span class="n">test</span>
+<span class="n">Random</span> <span class="n">is</span> <span class="mi">1804289383</span>
+</code></pre></div></div>
+
+<h3 id="note">NOTE</h3>
+
+<p>rand() is not a secure function to implement in programs</p>
+
+<p>So this rand() produces same output because the seed in it is not initialized,if there is different seed each time it would create a different random number</p>
+
+<p>Here rand() is called with default seed (1),thus it produces the same output for random number</p>
+
+<p>To prevent this type of security failure by rand() for pseudo random number generation, use srand()</p>
+
+<p>We know that the condition to pass the program is,</p>
+
+<p><code class="language-plaintext highlighter-rouge">if( (key ^ random) == 0xdeadbeef )</code></p>
+
+<p>Now <code class="language-plaintext highlighter-rouge">random</code> gives <code class="language-plaintext highlighter-rouge">1804289383</code>,</p>
+
+<p><code class="language-plaintext highlighter-rouge">key</code> is our input,</p>
+
+<p>If <code class="language-plaintext highlighter-rouge">random</code> performs <code class="language-plaintext highlighter-rouge">xor</code> operation with <code class="language-plaintext highlighter-rouge">key</code> it should give <code class="language-plaintext highlighter-rouge">0xdeadbeef</code> as result,</p>
+
+<p>On converting <code class="language-plaintext highlighter-rouge">int</code> to <code class="language-plaintext highlighter-rouge">hex</code>,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">hex</span><span class="p">(</span><span class="mi">1804289383</span><span class="p">)</span>
+<span class="err">'</span><span class="mh">0x6b8b4567</span><span class="err">'</span>
+</code></pre></div></div>
+
+<p>So <code class="language-plaintext highlighter-rouge">0x6b8b4567 ^ key == 0xdeadbeef</code>,</p>
+
+<p>Its time for mathematical calculation (Converting into binary format),</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mh">0x6b8b4567</span> <span class="o">=</span> <span class="mi">1101011100010110100010101100111</span>
+
+<span class="mh">0xdeadbeef</span> <span class="o">=</span> <span class="mi">11011110101011011011111011101111</span>
+</code></pre></div></div>
+
+<p>To find the key just XOR these,</p>
+
+<p>I used <a href="http://xor.pw/#">Online XOR Calculator</a></p>
+
+<p>So our <code class="language-plaintext highlighter-rouge">key</code> value should be ,</p>
+
+<p>In <code class="language-plaintext highlighter-rouge">hex</code> —&gt; <code class="language-plaintext highlighter-rouge">0xb526fb88</code></p>
+
+<p>In <code class="language-plaintext highlighter-rouge">int</code> —&gt; <code class="language-plaintext highlighter-rouge">3039230856</code></p>
+
+<p>Now if we pass this <code class="language-plaintext highlighter-rouge">int</code> type <code class="language-plaintext highlighter-rouge">key</code> in the input,we get our flag</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">random</span><span class="err">@</span><span class="n">pwnable</span><span class="o">:~</span><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">random</span>
+<span class="mi">3039230856</span>
+<span class="n">Good</span><span class="o">!</span>
+<span class="n">Mommy</span><span class="p">,</span> <span class="n">I</span> <span class="n">thought</span> <span class="n">libc</span> <span class="n">random</span> <span class="n">is</span> <span class="n">unpredictable</span><span class="p">...</span>
+</code></pre></div></div>
+
+<p>Done! We got our flag</p>
+
+<p><code class="language-plaintext highlighter-rouge">Flag: Mommy, I thought libc random is unpredictable...</code></p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#pwn" class="page__taxonomy-item" rel="tag">Pwn</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-06-05T00:00:00+05:30">June 5, 2021</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/pwn/2-passcode/" class="pagination--pager" title="pwnable.kr - passcode
+">Previous</a>
+    
+    
+      <a href="/binary%20exploitation/1-stack0/" class="pagination--pager" title="phoenix - stack 0
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Monish Kumar. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

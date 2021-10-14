@@ -1,0 +1,758 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>pwnable.kr - flag - aidenpearce369</title>
+<meta name="description" content="A simple challenge related to packers and unpackers ">
+
+
+  <meta name="author" content="Monish Kumar">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="aidenpearce369">
+<meta property="og:title" content="pwnable.kr - flag">
+<meta property="og:url" content="http://localhost:4000/pwn/1-flag/">
+
+
+  <meta property="og:description" content="A simple challenge related to packers and unpackers ">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/pwn/pwn.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-06-04T00:00:00+05:30">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/pwn/1-flag/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Monish Kumar",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="J3MnMF94zaZhTUoNtUiRt9cKsr7hiMyTxEdAvQ3GfmY" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="aidenpearce369 Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+<!-- favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/site_data/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/site_data/favicon-16x16.png">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          aidenpearce369
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/pwn">Pwn Challenges</a>
+            </li><li class="masthead__menu-item">
+              <a href="/binexp">Binary Exploitation</a>
+            </li><li class="masthead__menu-item">
+              <a href="/expdev">Exploit Development</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories">All Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/site_data/avatar.png" alt="Monish Kumar" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Monish Kumar</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Security Analyst and Youtuber</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Chennai, India</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:driftmonianonymous@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://twitter.com/aidenpearce369" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/aidenmonish/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/aidenpearce369" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://youtube.com/c/ExploitEverything" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i><span class="label">Youtube</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="pwnable.kr - flag">
+    <meta itemprop="description" content="Download the Binary">
+    <meta itemprop="datePublished" content="2021-06-04T00:00:00+05:30">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">pwnable.kr - flag
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  5 minute read
+
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Download the <a href="http://pwnable.kr/bin/flag">Binary</a></p>
+
+<p>It is said that this is a simple reversing task</p>
+
+<p>Lets list the files,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">flag</span><span class="o">&gt;</span> <span class="n">ls</span> <span class="o">-</span><span class="n">la</span>
+<span class="n">total</span> <span class="mi">340</span>
+<span class="n">drwxrwxr</span><span class="o">-</span><span class="n">x</span> <span class="mi">2</span> <span class="n">ra</span> <span class="n">ra</span>   <span class="mi">4096</span> <span class="n">Jun</span>  <span class="mi">3</span> <span class="mi">09</span><span class="o">:</span><span class="mi">37</span> <span class="p">.</span><span class="o">/</span>
+<span class="n">drwxrwxr</span><span class="o">-</span><span class="n">x</span> <span class="mi">6</span> <span class="n">ra</span> <span class="n">ra</span>   <span class="mi">4096</span> <span class="n">Jun</span>  <span class="mi">3</span> <span class="mi">09</span><span class="o">:</span><span class="mi">36</span> <span class="p">..</span><span class="o">/</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">ra</span> <span class="n">ra</span> <span class="mi">335288</span> <span class="n">May</span> <span class="mi">16</span>  <span class="mi">2019</span> <span class="n">flag</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">ra</span> <span class="n">ra</span>    <span class="mi">120</span> <span class="n">Jun</span>  <span class="mi">3</span> <span class="mi">09</span><span class="o">:</span><span class="mi">38</span> <span class="n">flag</span><span class="p">.</span><span class="n">md</span>
+</code></pre></div></div>
+
+<p>Now lets check the file type using <code class="language-plaintext highlighter-rouge">file</code> command,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">flag</span><span class="o">&gt;</span> <span class="n">file</span> <span class="n">flag</span>
+<span class="n">flag</span><span class="o">:</span> <span class="n">ELF</span> <span class="mi">64</span><span class="o">-</span><span class="n">bit</span> <span class="n">LSB</span> <span class="n">executable</span><span class="p">,</span> <span class="n">x86</span><span class="o">-</span><span class="mi">64</span><span class="p">,</span> <span class="n">version</span> <span class="mi">1</span> <span class="p">(</span><span class="n">GNU</span><span class="o">/</span><span class="n">Linux</span><span class="p">),</span> <span class="n">statically</span> <span class="n">linked</span><span class="p">,</span> <span class="n">no</span> <span class="n">section</span> <span class="n">header</span>
+</code></pre></div></div>
+
+<p>So it is a <code class="language-plaintext highlighter-rouge">stripped</code> binary</p>
+
+<p>By using <code class="language-plaintext highlighter-rouge">strings</code> we can see whether there is any ASCII or Unicode strings in it or not,</p>
+
+<p>But it is a lot for this binary</p>
+
+<p>Lets try running this binary,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">flag</span><span class="o">&gt;</span> <span class="p">.</span><span class="o">/</span><span class="n">flag</span>
+<span class="n">fish</span><span class="o">:</span> <span class="n">The</span> <span class="n">file</span> <span class="err">“</span><span class="p">.</span><span class="o">/</span><span class="n">flag</span><span class="err">”</span> <span class="n">is</span> <span class="n">not</span> <span class="n">executable</span> <span class="n">by</span> <span class="n">this</span> <span class="n">user</span>
+<span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">flag</span><span class="o">&gt;</span> <span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">flag</span>
+<span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">flag</span><span class="o">&gt;</span> <span class="p">.</span><span class="o">/</span><span class="n">flag</span>
+<span class="n">I</span> <span class="n">will</span> <span class="n">malloc</span><span class="p">()</span> <span class="n">and</span> <span class="n">strcpy</span> <span class="n">the</span> <span class="n">flag</span> <span class="n">there</span><span class="p">.</span> <span class="n">take</span> <span class="n">it</span><span class="p">.</span>
+</code></pre></div></div>
+
+<p>Its time for debugger,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">flag</span><span class="o">&gt;</span> <span class="n">gdb</span> <span class="p">.</span><span class="o">/</span><span class="n">flag</span>
+<span class="n">GNU</span> <span class="n">gdb</span> <span class="p">(</span><span class="n">Ubuntu</span> <span class="mi">9</span><span class="p">.</span><span class="mi">2</span><span class="o">-</span><span class="mi">0u</span><span class="n">buntu1</span><span class="o">~</span><span class="mi">20</span><span class="p">.</span><span class="mo">04</span><span class="p">)</span> <span class="mi">9</span><span class="p">.</span><span class="mi">2</span>
+<span class="n">Copyright</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="mi">2020</span> <span class="n">Free</span> <span class="n">Software</span> <span class="n">Foundation</span><span class="p">,</span> <span class="n">Inc</span><span class="p">.</span>
+<span class="n">License</span> <span class="n">GPLv3</span><span class="o">+:</span> <span class="n">GNU</span> <span class="n">GPL</span> <span class="n">version</span> <span class="mi">3</span> <span class="n">or</span> <span class="n">later</span> <span class="o">&lt;</span><span class="n">http</span><span class="o">:</span><span class="c1">//gnu.org/licenses/gpl.html&gt;</span>
+<span class="n">This</span> <span class="n">is</span> <span class="n">free</span> <span class="n">software</span><span class="o">:</span> <span class="n">you</span> <span class="n">are</span> <span class="n">free</span> <span class="n">to</span> <span class="n">change</span> <span class="n">and</span> <span class="n">redistribute</span> <span class="n">it</span><span class="p">.</span>
+<span class="n">There</span> <span class="n">is</span> <span class="n">NO</span> <span class="n">WARRANTY</span><span class="p">,</span> <span class="n">to</span> <span class="n">the</span> <span class="n">extent</span> <span class="n">permitted</span> <span class="n">by</span> <span class="n">law</span><span class="p">.</span>
+<span class="n">Type</span> <span class="s">"show copying"</span> <span class="n">and</span> <span class="s">"show warranty"</span> <span class="k">for</span> <span class="n">details</span><span class="p">.</span>
+<span class="n">This</span> <span class="n">GDB</span> <span class="n">was</span> <span class="n">configured</span> <span class="n">as</span> <span class="s">"x86_64-linux-gnu"</span><span class="p">.</span>
+<span class="n">Type</span> <span class="s">"show configuration"</span> <span class="k">for</span> <span class="n">configuration</span> <span class="n">details</span><span class="p">.</span>
+<span class="n">For</span> <span class="n">bug</span> <span class="n">reporting</span> <span class="n">instructions</span><span class="p">,</span> <span class="n">please</span> <span class="n">see</span><span class="o">:</span>
+<span class="o">&lt;</span><span class="n">http</span><span class="o">:</span><span class="c1">//www.gnu.org/software/gdb/bugs/&gt;.</span>
+<span class="n">Find</span> <span class="n">the</span> <span class="n">GDB</span> <span class="n">manual</span> <span class="n">and</span> <span class="n">other</span> <span class="n">documentation</span> <span class="n">resources</span> <span class="n">online</span> <span class="n">at</span><span class="o">:</span>
+    <span class="o">&lt;</span><span class="n">http</span><span class="o">:</span><span class="c1">//www.gnu.org/software/gdb/documentation/&gt;.</span>
+
+<span class="n">For</span> <span class="n">help</span><span class="p">,</span> <span class="n">type</span> <span class="s">"help"</span><span class="p">.</span>
+<span class="n">Type</span> <span class="s">"apropos word"</span> <span class="n">to</span> <span class="n">search</span> <span class="k">for</span> <span class="n">commands</span> <span class="n">related</span> <span class="n">to</span> <span class="s">"word"</span><span class="p">...</span>
+<span class="n">pwndbg</span><span class="o">:</span> <span class="n">loaded</span> <span class="mi">194</span> <span class="n">commands</span><span class="p">.</span> <span class="n">Type</span> <span class="n">pwndbg</span> <span class="p">[</span><span class="n">filter</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="n">list</span><span class="p">.</span>
+<span class="n">pwndbg</span><span class="o">:</span> <span class="n">created</span> <span class="err">$</span><span class="n">rebase</span><span class="p">,</span> <span class="err">$</span><span class="n">ida</span> <span class="n">gdb</span> <span class="n">functions</span> <span class="p">(</span><span class="n">can</span> <span class="n">be</span> <span class="n">used</span> <span class="n">with</span> <span class="n">print</span><span class="o">/</span><span class="k">break</span><span class="p">)</span>
+<span class="n">Reading</span> <span class="n">symbols</span> <span class="n">from</span> <span class="p">.</span><span class="o">/</span><span class="n">flag</span><span class="p">...</span>
+<span class="p">(</span><span class="n">No</span> <span class="n">debugging</span> <span class="n">symbols</span> <span class="n">found</span> <span class="n">in</span> <span class="p">.</span><span class="o">/</span><span class="n">flag</span><span class="p">)</span>
+<span class="n">pwndbg</span><span class="o">&gt;</span> <span class="n">info</span> <span class="n">functions</span>
+<span class="n">All</span> <span class="n">defined</span> <span class="n">functions</span><span class="o">:</span>
+<span class="n">pwndbg</span><span class="o">&gt;</span> <span class="n">disassemble</span> <span class="n">main</span>
+<span class="n">No</span> <span class="n">symbol</span> <span class="n">table</span> <span class="n">is</span> <span class="n">loaded</span><span class="p">.</span>  <span class="n">Use</span> <span class="n">the</span> <span class="s">"file"</span> <span class="n">command</span><span class="p">.</span>
+</code></pre></div></div>
+
+<p>Since it is a <code class="language-plaintext highlighter-rouge">stripped</code> binary we cannot see any symbols in it</p>
+
+<p>So i did more digging with <code class="language-plaintext highlighter-rouge">strings</code></p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">flag</span><span class="o">&gt;</span> <span class="n">strings</span> <span class="n">flag</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">flag</span>
+<span class="n">mthNflag</span>
+<span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">flag</span><span class="o">&gt;</span> <span class="n">strings</span> <span class="o">-</span><span class="mi">10</span> <span class="n">flag</span>
+<span class="err">''''</span> <span class="p">(</span><span class="mi">0</span><span class="n">h</span><span class="err">''''</span><span class="n">HPX</span><span class="err">`</span>
+<span class="n">np</span><span class="o">!</span><span class="n">f</span><span class="err">@</span><span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="n">uIB</span><span class="p">(</span><span class="mi">0</span><span class="n">Tc</span>
+<span class="n">Is</span><span class="err">\</span><span class="n">AQ9</span><span class="err">@</span><span class="o">&amp;</span><span class="mi">9</span><span class="p">;</span><span class="mi">0</span>
+<span class="o">|&gt;</span><span class="n">_</span> <span class="n">g</span><span class="p">(</span><span class="n">o0</span><span class="o">|</span><span class="n">y</span>
+<span class="o">*</span><span class="mi">94</span><span class="n">D</span><span class="err">@</span><span class="n">yq</span>	<span class="mi">9</span><span class="n">j</span>
+<span class="n">DEo0</span><span class="o">?^</span> <span class="n">T3</span>	<span class="n">xF5</span>
+<span class="n">D</span><span class="o">+</span><span class="n">Hf</span><span class="p">]</span><span class="n">X</span><span class="p">)</span><span class="n">J</span><span class="p">(</span><span class="o">~</span> <span class="err">`</span>
+<span class="mi">3</span><span class="n">n</span><span class="o">&lt;</span><span class="n">_t6</span><span class="o">&lt;-</span><span class="n">t2</span><span class="o">&lt;</span><span class="p">.</span><span class="n">t</span><span class="p">.</span>
+<span class="o">^</span><span class="err">'</span><span class="n">oxMlqM</span><span class="o">|</span><span class="n">M</span>
+<span class="o">%!</span><span class="p">,</span><span class="n">L98v</span><span class="p">(</span><span class="o">&gt;</span><span class="n">F</span>
+ <span class="o">^=</span><span class="mi">9</span><span class="n">X</span><span class="o">~</span><span class="s">"1[p</span><span class="err">
+</span><span class="s">wwu62#}w"</span><span class="n">I</span>	
+<span class="o">!&lt;/</span><span class="n">x</span>	<span class="n">dSt62A</span>
+<span class="n">DUt</span><span class="p">]</span><span class="n">c</span><span class="p">[</span><span class="n">y</span><span class="p">;</span><span class="s">"Z</span><span class="err">
+</span><span class="s">ps0/(HTDsxb</span><span class="err">
+</span><span class="s">d"</span><span class="p">;</span> <span class="n">Ut</span><span class="p">;</span><span class="n">IZ</span><span class="p">,</span>
+<span class="n">FFFF</span><span class="o">|</span><span class="n">vpjFFFFd</span><span class="o">^</span><span class="n">XR</span>
+<span class="mi">9</span><span class="p">.</span><span class="n">Q_q_</span><span class="o">:</span>	<span class="o">!</span><span class="n">m</span>
+<span class="n">B</span> <span class="n">like</span> <span class="n">a</span> <span class="n">de</span>
+<span class="n">vic</span><span class="err">$</span><span class="o">:</span><span class="p">)</span><span class="n">oI</span> <span class="n">wi</span><span class="p">{</span><span class="mi">3</span><span class="p">{</span>
+<span class="n">oc</span><span class="p">()</span><span class="n">VjHtrcpV</span>
+<span class="n">_STDERR_U4</span>
+<span class="o">^</span><span class="mi">0</span><span class="n">HMdZp</span><span class="p">)</span><span class="o">-&gt;?</span> <span class="o">&amp;</span> <span class="mi">0</span><span class="o">+</span><span class="mo">03</span>
+<span class="err">`</span><span class="o">*</span><span class="n">r</span><span class="p">(])</span><span class="n">iP</span><span class="o">!</span><span class="n">ph</span>
+<span class="o">?</span><span class="mi">0</span><span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span><span class="n">U</span>
+<span class="n">m0</span><span class="s">"|| / (GDU</span><span class="err">
+</span><span class="s">]15QQen"</span><span class="p">,</span><span class="n">p</span>
+<span class="o">?</span><span class="p">..</span><span class="o">/:</span><span class="n">deps</span><span class="o">/</span><span class="n">x86_64</span>
+<span class="n">ck_worYd</span><span class="err">$</span><span class="mi">6</span>
+<span class="mi">6</span><span class="err">@</span><span class="o">?</span><span class="n">GCONVFTH</span>
+<span class="n">F_DIRlOSpIASE</span>
+<span class="o">?</span><span class="n">_OUTPU1YNAMIC_WEAK</span>
+<span class="n">_</span><span class="o">~</span><span class="n">SO</span><span class="o">/</span><span class="n">IEC</span> <span class="mi">14652</span> <span class="n">i18n</span> <span class="n">FDC</span>
+ <span class="o">!</span><span class="s">"#$%&amp;'()</span><span class="err">
+</span><span class="s">*+,-./0&gt;3x6789:;&lt;=&gt;?</span><span class="err">
+</span><span class="s">@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_</span><span class="err">
+</span><span class="s">`abcdefghijklmnopqrstuvwxyz{|}~</span><span class="err">
+</span><span class="s">C`.usr/sJe/</span><span class="err">
+</span><span class="s">-c+21474836</span><span class="err">
+</span><span class="s">la.HfB[-1]</span><span class="err">
+</span><span class="s">ANSI_X3.4&amp;968//T</span><span class="err">
+</span><span class="s">;][tpVt8isT</span><span class="err">
+</span><span class="s">[{"</span><span class="o">=</span><span class="n">q</span><span class="s">"q ,(0t\Q</span><span class="err">
+</span><span class="s">p_9ILP32_OFF</span><span class="err">
+</span><span class="s">: O_CREATE</span><span class="err">
+</span><span class="s">'k$~[9]-&gt;d</span><span class="err">
+</span><span class="s">D 0no*RRx_</span><span class="err">
+</span><span class="s">#J?3O2ABI</span><span class="err">
+</span><span class="s">NCYL 5GSCO0</span><span class="err">
+</span><span class="s">-10 6/UCS4/H</span><span class="err">
+</span><span class="s">,$PZT(ALJ7</span><span class="err">
+</span><span class="s">-4LE/SleWle[u%</span><span class="err">
+</span><span class="s">LEPHONiASU2</span><span class="err">
+</span><span class="s"> "</span><span class="mi">9999</span><span class="err">$</span><span class="o">%&amp;/</span><span class="mi">999956799999</span><span class="o">:&lt;</span><span class="n">DG9999HI_</span><span class="err">`</span>
+<span class="cp">#6''''&lt;dej''''k
+</span> <span class="err">''''</span><span class="o">!</span><span class="err">#$`''''</span><span class="n">abcd</span><span class="err">''''</span><span class="n">efgh</span><span class="err">''''</span><span class="n">ijkl</span><span class="err">''''</span><span class="n">mnop</span><span class="err">''''</span><span class="n">qrst</span><span class="err">''''</span><span class="n">uvwx</span><span class="err">''''</span><span class="n">yz</span><span class="p">{</span><span class="o">|</span><span class="err">''''</span><span class="p">}</span><span class="o">~</span>
+<span class="err">'</span><span class="n">t</span><span class="o">*</span><span class="n">uv</span><span class="err">#</span><span class="n">oWCa</span>
+<span class="n">Q2R</span><span class="err">''''</span><span class="n">STUV</span><span class="err">''''</span><span class="n">WXYZ</span><span class="err">''''</span><span class="p">[</span><span class="err">\</span><span class="p">]</span><span class="o">^</span><span class="err">''''</span><span class="n">_</span>
+<span class="n">MNONNNNPRTUNNNNVWYZNNNN</span><span class="p">[</span><span class="err">\</span><span class="n">_</span><span class="err">`</span><span class="n">NNNNabcdNNNNefhi</span>
+ <span class="n">rrrr</span><span class="o">!</span><span class="s">"#$rrrr%&amp;'(rrrr)*+,rrrr-./0rrrr1234rrrr5678rrrr9;&lt;=rrrr&gt;@ABrrrrCDFJrrrrKLMNrrrrOPRSrrrrTUVWrrrrXYZ[rrrr\]^_rrrr`abcrrrrdefgrrrrhijkrrrrlmnorrrrpqrsrrrrtuvwrrrrxyz{rrrr|}~</span><span class="err">
+</span><span class="s"> !"</span><span class="mi">9999</span><span class="err">#$</span><span class="o">%&amp;</span><span class="mi">9999</span><span class="err">'</span><span class="p">()</span><span class="o">*</span><span class="mi">9999</span><span class="o">+</span><span class="p">,</span><span class="o">-</span><span class="p">.</span><span class="mi">9999</span><span class="o">/</span><span class="mo">012</span><span class="mi">999934569999789</span><span class="o">:</span><span class="mi">9999</span><span class="p">;</span><span class="o">&lt;=&gt;</span><span class="mi">9999</span><span class="o">?</span><span class="err">@</span><span class="n">AB9999CDEF9999GHIJ9999KLMN9999OPQR9999STUV9999WXYZ9999</span><span class="p">[</span><span class="err">\</span><span class="p">]</span><span class="o">^</span><span class="mi">9999</span><span class="n">_</span><span class="err">`</span><span class="n">ab9999cdef9999ghij9999klmn9999opqr9999stuv9999wxyz9999</span><span class="p">{</span><span class="o">|</span><span class="p">}</span><span class="o">~</span><span class="mi">9999</span>
+<span class="err">'</span><span class="mi">12</span><span class="n">Wr</span><span class="o">%</span><span class="n">W345</span><span class="o">%</span><span class="n">Wr</span><span class="o">%</span><span class="mi">67</span><span class="n">x</span><span class="o">!</span><span class="n">Wr892</span>
+<span class="n">b</span><span class="err">'</span><span class="n">cdr</span><span class="o">%</span><span class="n">WrefgWr</span><span class="o">%</span><span class="n">Whij</span><span class="o">%</span><span class="n">Wr</span><span class="o">%</span><span class="n">klr</span><span class="o">%</span><span class="n">WrmnoWr</span><span class="o">%</span><span class="n">Wpqr</span><span class="o">%</span><span class="n">Wr</span><span class="o">%</span><span class="n">str</span><span class="o">%</span><span class="n">WruvwWr</span><span class="o">%</span><span class="n">Wxyz</span><span class="o">%</span><span class="n">Wr</span><span class="o">%</span><span class="n">ABr</span><span class="o">%</span><span class="n">WrCDEWr</span><span class="o">%</span><span class="n">WFGH</span><span class="o">%</span><span class="n">Wr</span><span class="o">%</span><span class="n">IJr</span><span class="o">%</span><span class="n">WrKLMWr</span><span class="o">%</span><span class="n">WNOP</span><span class="o">%</span><span class="n">Wr</span><span class="o">%</span><span class="n">QRr</span><span class="o">%</span><span class="n">WrSTUWr</span><span class="o">%</span><span class="n">WVWX</span><span class="o">%</span><span class="n">Wr</span><span class="o">%</span><span class="n">YZ</span>
+<span class="n">_r</span><span class="o">%</span><span class="n">W</span><span class="p">;</span><span class="n">k</span><span class="err">'</span><span class="n">MGEp</span><span class="o">%</span><span class="n">WTu</span>
+<span class="n">Fri</span><span class="p">.</span><span class="n">at7day</span><span class="o">=</span>
+<span class="n">pchuilqesyuustuw</span>
+ <span class="err">$</span><span class="mi">9999</span><span class="p">(</span><span class="o">/</span><span class="mi">6</span><span class="o">&gt;</span><span class="mi">9999</span><span class="n">HQXa9999eimq9999uy</span><span class="p">}</span>
+<span class="n">Vng1XENIX</span><span class="err">#</span>
+<span class="o">&amp;</span><span class="mi">9223372036854775807L</span><span class="err">`</span>
+<span class="o">&lt;</span><span class="n">http</span><span class="o">:</span><span class="c1">//w(</span>
+<span class="n">PROT_EXEC</span><span class="o">|</span><span class="n">PROT_WRITE</span> <span class="n">failed</span><span class="p">.</span>
+<span class="err">$</span><span class="n">Info</span><span class="o">:</span> <span class="n">This</span> <span class="n">file</span> <span class="n">is</span> <span class="n">packed</span> <span class="n">with</span> <span class="n">the</span> <span class="n">UPX</span> <span class="n">executable</span> <span class="n">packer</span> <span class="n">http</span><span class="o">:</span><span class="c1">//upx.sf.net $</span>
+<span class="err">$</span><span class="n">Id</span><span class="o">:</span> <span class="n">UPX</span> <span class="mi">3</span><span class="p">.</span><span class="mi">08</span> <span class="n">Copyright</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="mi">1996</span><span class="o">-</span><span class="mi">2011</span> <span class="n">the</span> <span class="n">UPX</span> <span class="n">Team</span><span class="p">.</span> <span class="n">All</span> <span class="n">Rights</span> <span class="n">Reserved</span><span class="p">.</span> <span class="err">$</span>
+<span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">self</span><span class="o">/</span><span class="n">exe</span>
+<span class="nl">GCC:</span> <span class="p">(</span><span class="n">Ubuntu</span><span class="o">/</span><span class="n">Linaro</span> <span class="mi">4</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">3</span><span class="o">-</span><span class="mi">1u</span><span class="p">)</span><span class="err">#</span>
+<span class="n">ild</span><span class="o">-</span><span class="n">id</span><span class="err">$</span><span class="n">rela</span><span class="p">.</span><span class="n">plt</span>
+<span class="n">__libc_f8e</span>
+<span class="n">g</span><span class="o">?</span><span class="n">ojxS</span><span class="err">*/</span><span class="o">?</span><span class="mi">8</span><span class="o">/</span>
+<span class="n">OT</span><span class="o">/?</span><span class="n">d</span><span class="err">''''</span><span class="p">[</span>
+<span class="o">/</span><span class="n">p</span><span class="err">#</span><span class="n">o</span><span class="p">]</span><span class="o">/</span><span class="n">P8vQj</span>
+<span class="n">call_gmon_start</span>
+<span class="n">DEH_FRAME_BEGINf</span>
+<span class="err">@</span><span class="n">pleted</span><span class="p">.</span><span class="mi">6036</span>
+<span class="n">curi</span><span class="p">,</span><span class="n">cntrSd</span>
+<span class="o">|</span><span class="mi">85408</span><span class="p">.</span><span class="n">mLm</span>
+<span class="n">afKjump_</span><span class="err">`</span><span class="n">B</span><span class="err">`</span>
+<span class="n">_PRETTY_FUNCT0Na</span>
+<span class="err">@#</span><span class="mi">1</span><span class="p">{</span><span class="mi">59</span><span class="err">#</span><span class="mi">3</span><span class="n">a</span><span class="o">%</span><span class="p">[</span>
+<span class="p">.</span><span class="o">&lt;</span><span class="n">e</span><span class="p">;</span><span class="mi">5</span><span class="n">wdP9H</span><span class="o">*</span>
+<span class="o">~|</span><span class="mi">2</span><span class="n">adDdoJs</span><span class="p">;</span><span class="mi">0</span>
+<span class="n">C_</span><span class="o">&gt;</span><span class="n">YPE</span><span class="o">/</span><span class="n">NUMERIC</span><span class="o">?</span>
+<span class="o">&lt;</span><span class="n">tbltoCto</span><span class="o">?</span>
+<span class="n">mkpl</span><span class="err">'</span><span class="n">GLOBAL_O</span><span class="p">,</span>
+<span class="n">I</span><span class="o">^</span><span class="n">Mx868uA8</span><span class="s">"k</span><span class="err">
+</span><span class="s">F 	sa	 WUH</span><span class="err">
+</span></code></pre></div></div>
+
+<p>And here is some interesting part from the <code class="language-plaintext highlighter-rouge">strings -10 flag</code> output,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span><span class="n">Info</span><span class="o">:</span> <span class="n">This</span> <span class="n">file</span> <span class="n">is</span> <span class="n">packed</span> <span class="n">with</span> <span class="n">the</span> <span class="n">UPX</span> <span class="n">executable</span> <span class="n">packer</span> <span class="n">http</span><span class="o">:</span><span class="c1">//upx.sf.net $</span>
+<span class="err">$</span><span class="n">Id</span><span class="o">:</span> <span class="n">UPX</span> <span class="mi">3</span><span class="p">.</span><span class="mi">08</span> <span class="n">Copyright</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="mi">1996</span><span class="o">-</span><span class="mi">2011</span> <span class="n">the</span> <span class="n">UPX</span> <span class="n">Team</span><span class="p">.</span> <span class="n">All</span> <span class="n">Rights</span> <span class="n">Reserved</span><span class="p">.</span> <span class="err">$</span>
+</code></pre></div></div>
+
+<p>It gives us some info that this <code class="language-plaintext highlighter-rouge">stripped</code> binary is being <code class="language-plaintext highlighter-rouge">packed</code> by <code class="language-plaintext highlighter-rouge">UPX</code></p>
+
+<p>So we should use <code class="language-plaintext highlighter-rouge">UPX</code> to unpack it</p>
+
+<p>More on UPX,</p>
+
+<p>https://en.wikipedia.org/wiki/UPX</p>
+
+<p>https://upx.github.io/</p>
+
+<hr />
+
+<p>We know that this binary is being packed by <code class="language-plaintext highlighter-rouge">UPX</code>,</p>
+
+<p>Now lets install <code class="language-plaintext highlighter-rouge">UPX</code></p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">flag</span><span class="o">&gt;</span> <span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">upx</span>
+<span class="p">[</span><span class="n">sudo</span><span class="p">]</span> <span class="n">password</span> <span class="k">for</span> <span class="n">ra</span><span class="o">:</span>
+<span class="n">Reading</span> <span class="n">package</span> <span class="n">lists</span><span class="p">...</span> <span class="n">Done</span>
+<span class="n">Building</span> <span class="n">dependency</span> <span class="n">tree</span>
+<span class="n">Reading</span> <span class="n">state</span> <span class="n">information</span><span class="p">...</span> <span class="n">Done</span>
+<span class="n">Note</span><span class="p">,</span> <span class="n">selecting</span> <span class="err">'</span><span class="n">upx</span><span class="o">-</span><span class="n">ucl</span><span class="err">'</span> <span class="n">instead</span> <span class="n">of</span> <span class="err">'</span><span class="n">upx</span><span class="err">'</span>
+<span class="n">The</span> <span class="n">following</span> <span class="n">additional</span> <span class="n">packages</span> <span class="n">will</span> <span class="n">be</span> <span class="n">installed</span><span class="o">:</span>
+  <span class="n">libucl1</span>
+<span class="n">The</span> <span class="n">following</span> <span class="n">NEW</span> <span class="n">packages</span> <span class="n">will</span> <span class="n">be</span> <span class="n">installed</span><span class="o">:</span>
+  <span class="n">libucl1</span> <span class="n">upx</span><span class="o">-</span><span class="n">ucl</span>
+<span class="mi">0</span> <span class="n">upgraded</span><span class="p">,</span> <span class="mi">2</span> <span class="n">newly</span> <span class="n">installed</span><span class="p">,</span> <span class="mi">0</span> <span class="n">to</span> <span class="n">remove</span> <span class="n">and</span> <span class="mi">46</span> <span class="n">not</span> <span class="n">upgraded</span><span class="p">.</span>
+<span class="n">Need</span> <span class="n">to</span> <span class="n">get</span> <span class="mi">417</span> <span class="n">kB</span> <span class="n">of</span> <span class="n">archives</span><span class="p">.</span>
+<span class="n">After</span> <span class="n">this</span> <span class="n">operation</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">158</span> <span class="n">kB</span> <span class="n">of</span> <span class="n">additional</span> <span class="n">disk</span> <span class="n">space</span> <span class="n">will</span> <span class="n">be</span> <span class="n">used</span><span class="p">.</span>
+<span class="n">Do</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="k">continue</span><span class="o">?</span> <span class="p">[</span><span class="n">Y</span><span class="o">/</span><span class="n">n</span><span class="p">]</span>
+<span class="n">Get</span><span class="o">:</span><span class="mi">1</span> <span class="n">http</span><span class="o">:</span><span class="c1">//in.archive.ubuntu.com/ubuntu focal/universe amd64 libucl1 amd64 1.03+repack-5 [25.0 kB]</span>
+<span class="n">Get</span><span class="o">:</span><span class="mi">2</span> <span class="n">http</span><span class="o">:</span><span class="c1">//in.archive.ubuntu.com/ubuntu focal/universe amd64 upx-ucl amd64 3.95-2build1 [392 kB]</span>
+<span class="n">Fetched</span> <span class="mi">417</span> <span class="n">kB</span> <span class="n">in</span> <span class="mi">1</span><span class="n">s</span> <span class="p">(</span><span class="mi">288</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Selecting</span> <span class="n">previously</span> <span class="n">unselected</span> <span class="n">package</span> <span class="n">libucl1</span><span class="o">:</span><span class="n">amd64</span><span class="p">.</span>
+<span class="p">(</span><span class="n">Reading</span> <span class="n">database</span> <span class="p">...</span> <span class="mi">339326</span> <span class="n">files</span> <span class="n">and</span> <span class="n">directories</span> <span class="n">currently</span> <span class="n">installed</span><span class="p">.)</span>
+<span class="n">Preparing</span> <span class="n">to</span> <span class="n">unpack</span> <span class="p">...</span><span class="o">/</span><span class="n">libucl1_1</span><span class="p">.</span><span class="mo">03</span><span class="o">+</span><span class="n">repack</span><span class="o">-</span><span class="mi">5</span><span class="n">_amd64</span><span class="p">.</span><span class="n">deb</span> <span class="p">...</span>
+<span class="n">Unpacking</span> <span class="n">libucl1</span><span class="o">:</span><span class="n">amd64</span> <span class="p">(</span><span class="mi">1</span><span class="p">.</span><span class="mo">03</span><span class="o">+</span><span class="n">repack</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span> <span class="p">...</span>
+<span class="n">Selecting</span> <span class="n">previously</span> <span class="n">unselected</span> <span class="n">package</span> <span class="n">upx</span><span class="o">-</span><span class="n">ucl</span><span class="p">.</span>
+<span class="n">Preparing</span> <span class="n">to</span> <span class="n">unpack</span> <span class="p">...</span><span class="o">/</span><span class="n">upx</span><span class="o">-</span><span class="n">ucl_3</span><span class="p">.</span><span class="mi">95</span><span class="o">-</span><span class="mi">2</span><span class="n">build1_amd64</span><span class="p">.</span><span class="n">deb</span> <span class="p">...</span>
+<span class="n">Unpacking</span> <span class="n">upx</span><span class="o">-</span><span class="n">ucl</span> <span class="p">(</span><span class="mi">3</span><span class="p">.</span><span class="mi">95</span><span class="o">-</span><span class="mi">2</span><span class="n">build1</span><span class="p">)</span> <span class="p">...</span>
+<span class="n">Setting</span> <span class="n">up</span> <span class="n">libucl1</span><span class="o">:</span><span class="n">amd64</span> <span class="p">(</span><span class="mi">1</span><span class="p">.</span><span class="mo">03</span><span class="o">+</span><span class="n">repack</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span> <span class="p">...</span>
+<span class="n">Setting</span> <span class="n">up</span> <span class="n">upx</span><span class="o">-</span><span class="n">ucl</span> <span class="p">(</span><span class="mi">3</span><span class="p">.</span><span class="mi">95</span><span class="o">-</span><span class="mi">2</span><span class="n">build1</span><span class="p">)</span> <span class="p">...</span>
+<span class="n">update</span><span class="o">-</span><span class="n">alternatives</span><span class="o">:</span> <span class="n">error</span><span class="o">:</span> <span class="n">no</span> <span class="n">alternatives</span> <span class="k">for</span> <span class="n">upx</span>
+<span class="n">update</span><span class="o">-</span><span class="n">alternatives</span><span class="o">:</span> <span class="n">using</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">upx</span><span class="o">-</span><span class="n">ucl</span> <span class="n">to</span> <span class="n">provide</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">upx</span> <span class="p">(</span><span class="n">upx</span><span class="p">)</span> <span class="n">in</span> <span class="k">auto</span> <span class="n">mode</span>
+<span class="n">Processing</span> <span class="n">triggers</span> <span class="k">for</span> <span class="n">man</span><span class="o">-</span><span class="n">db</span> <span class="p">(</span><span class="mi">2</span><span class="p">.</span><span class="mi">9</span><span class="p">.</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">...</span>
+<span class="n">Processing</span> <span class="n">triggers</span> <span class="k">for</span> <span class="n">libc</span><span class="o">-</span><span class="n">bin</span> <span class="p">(</span><span class="mi">2</span><span class="p">.</span><span class="mi">31</span><span class="o">-</span><span class="mi">0u</span><span class="n">buntu9</span><span class="p">.</span><span class="mi">2</span><span class="p">)</span> <span class="p">...</span>
+</code></pre></div></div>
+<p>Its time to unpack this binary,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">flag</span><span class="o">&gt;</span> <span class="n">which</span> <span class="n">upx</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">upx</span>
+<span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">flag</span><span class="o">&gt;</span> <span class="n">upx</span> <span class="o">-</span><span class="n">d</span> <span class="n">flag</span>
+                       <span class="n">Ultimate</span> <span class="n">Packer</span> <span class="k">for</span> <span class="n">eXecutables</span>
+                          <span class="n">Copyright</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="mi">1996</span> <span class="o">-</span> <span class="mi">2018</span>
+<span class="n">UPX</span> <span class="mi">3</span><span class="p">.</span><span class="mi">95</span>        <span class="n">Markus</span> <span class="n">Oberhumer</span><span class="p">,</span> <span class="n">Laszlo</span> <span class="n">Molnar</span> <span class="o">&amp;</span> <span class="n">John</span> <span class="n">Reiser</span>   <span class="n">Aug</span> <span class="mi">26</span><span class="n">th</span> <span class="mi">2018</span>
+
+        <span class="n">File</span> <span class="n">size</span>         <span class="n">Ratio</span>      <span class="n">Format</span>      <span class="n">Name</span>
+   <span class="o">--------------------</span>   <span class="o">------</span>   <span class="o">-----------</span>   <span class="o">-----------</span>
+    <span class="mi">883745</span> <span class="o">&lt;-</span>    <span class="mi">335288</span>   <span class="mi">37</span><span class="p">.</span><span class="mi">94</span><span class="o">%</span>   <span class="n">linux</span><span class="o">/</span><span class="n">amd64</span>   <span class="n">flag</span>
+
+<span class="n">Unpacked</span> <span class="mi">1</span> <span class="n">file</span><span class="p">.</span>
+</code></pre></div></div>
+
+<p>Now lets check the file type using <code class="language-plaintext highlighter-rouge">file</code> command,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">flag</span><span class="o">&gt;</span> <span class="n">file</span> <span class="n">flag</span>
+<span class="n">flag</span><span class="o">:</span> <span class="n">ELF</span> <span class="mi">64</span><span class="o">-</span><span class="n">bit</span> <span class="n">LSB</span> <span class="n">executable</span><span class="p">,</span> <span class="n">x86</span><span class="o">-</span><span class="mi">64</span><span class="p">,</span> <span class="n">version</span> <span class="mi">1</span> <span class="p">(</span><span class="n">GNU</span><span class="o">/</span><span class="n">Linux</span><span class="p">),</span> <span class="n">statically</span> <span class="n">linked</span><span class="p">,</span> <span class="k">for</span> <span class="n">GNU</span><span class="o">/</span><span class="n">Linux</span> <span class="mi">2</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">24</span><span class="p">,</span> <span class="n">BuildID</span><span class="p">[</span><span class="n">sha1</span><span class="p">]</span><span class="o">=</span><span class="mi">96</span><span class="n">ec4cc272aeb383bd9ed26c0d4ac0eb5db41b16</span><span class="p">,</span> <span class="n">not</span> <span class="n">stripped</span>
+</code></pre></div></div>
+
+<p>Yeah! Our <code class="language-plaintext highlighter-rouge">packed stripped</code> binary became <code class="language-plaintext highlighter-rouge">not stripped</code> binary</p>
+
+<p>Now we can easily analyze it with our debuggers</p>
+
+<hr />
+
+<p>Opening our decompressed binary in debugger,</p>
+
+<p>Disassembling <code class="language-plaintext highlighter-rouge">main()</code></p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pwndbg</span><span class="o">&gt;</span> <span class="n">disassemble</span> <span class="n">main</span>
+<span class="n">Dump</span> <span class="n">of</span> <span class="n">assembler</span> <span class="n">code</span> <span class="k">for</span> <span class="n">function</span> <span class="n">main</span><span class="o">:</span>
+   <span class="mh">0x0000000000401164</span> <span class="o">&lt;+</span><span class="mi">0</span><span class="o">&gt;:</span>	<span class="n">push</span>   <span class="n">rbp</span>
+   <span class="mh">0x0000000000401165</span> <span class="o">&lt;+</span><span class="mi">1</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">rbp</span><span class="p">,</span><span class="n">rsp</span>
+   <span class="mh">0x0000000000401168</span> <span class="o">&lt;+</span><span class="mi">4</span><span class="o">&gt;:</span>	<span class="n">sub</span>    <span class="n">rsp</span><span class="p">,</span><span class="mh">0x10</span>
+   <span class="mh">0x000000000040116c</span> <span class="o">&lt;+</span><span class="mi">8</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">edi</span><span class="p">,</span><span class="mh">0x496658</span>
+   <span class="mh">0x0000000000401171</span> <span class="o">&lt;+</span><span class="mi">13</span><span class="o">&gt;:</span>	<span class="n">call</span>   <span class="mh">0x402080</span> <span class="o">&lt;</span><span class="n">puts</span><span class="o">&gt;</span>
+   <span class="mh">0x0000000000401176</span> <span class="o">&lt;+</span><span class="mi">18</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">edi</span><span class="p">,</span><span class="mh">0x64</span>
+   <span class="mh">0x000000000040117b</span> <span class="o">&lt;+</span><span class="mi">23</span><span class="o">&gt;:</span>	<span class="n">call</span>   <span class="mh">0x4099d0</span> <span class="o">&lt;</span><span class="n">malloc</span><span class="o">&gt;</span>
+   <span class="mh">0x0000000000401180</span> <span class="o">&lt;+</span><span class="mi">28</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">QWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">rbp</span><span class="o">-</span><span class="mh">0x8</span><span class="p">],</span><span class="n">rax</span>
+   <span class="mh">0x0000000000401184</span> <span class="o">&lt;+</span><span class="mi">32</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">rdx</span><span class="p">,</span><span class="n">QWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">rip</span><span class="o">+</span><span class="mh">0x2c0ee5</span><span class="p">]</span>        <span class="err">#</span> <span class="mh">0x6c2070</span> <span class="o">&lt;</span><span class="n">flag</span><span class="o">&gt;</span>
+   <span class="mh">0x000000000040118b</span> <span class="o">&lt;+</span><span class="mi">39</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">rax</span><span class="p">,</span><span class="n">QWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">rbp</span><span class="o">-</span><span class="mh">0x8</span><span class="p">]</span>
+   <span class="mh">0x000000000040118f</span> <span class="o">&lt;+</span><span class="mi">43</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">rsi</span><span class="p">,</span><span class="n">rdx</span>
+   <span class="mh">0x0000000000401192</span> <span class="o">&lt;+</span><span class="mi">46</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">rdi</span><span class="p">,</span><span class="n">rax</span>
+   <span class="mh">0x0000000000401195</span> <span class="o">&lt;+</span><span class="mi">49</span><span class="o">&gt;:</span>	<span class="n">call</span>   <span class="mh">0x400320</span>
+   <span class="mh">0x000000000040119a</span> <span class="o">&lt;+</span><span class="mi">54</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">eax</span><span class="p">,</span><span class="mh">0x0</span>
+   <span class="mh">0x000000000040119f</span> <span class="o">&lt;+</span><span class="mi">59</span><span class="o">&gt;:</span>	<span class="n">leave</span>
+   <span class="mh">0x00000000004011a0</span> <span class="o">&lt;+</span><span class="mi">60</span><span class="o">&gt;:</span>	<span class="n">ret</span>
+<span class="n">End</span> <span class="n">of</span> <span class="n">assembler</span> <span class="n">dump</span><span class="p">.</span>
+</code></pre></div></div>
+
+<p>It looks like we got our <code class="language-plaintext highlighter-rouge">flag</code> from the comment which is being loaded into <code class="language-plaintext highlighter-rouge">rdx</code>,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pwndbg</span><span class="o">&gt;</span> <span class="n">x</span><span class="o">/</span><span class="n">s</span> <span class="mh">0x6c2070</span>
+<span class="mh">0x6c2070</span> <span class="o">&lt;</span><span class="n">flag</span><span class="o">&gt;:</span>	<span class="s">"(fI"</span>
+<span class="n">pwndbg</span><span class="o">&gt;</span> <span class="n">x</span><span class="o">/</span><span class="n">s</span> <span class="o">*</span><span class="mh">0x6c2070</span>
+<span class="mh">0x496628</span><span class="o">:</span>	<span class="s">"UPX...? sounds like a delivery service :)"</span>
+</code></pre></div></div>
+<p>Done! we got our flag,</p>
+
+<p><code class="language-plaintext highlighter-rouge">Flag: UPX...? sounds like a delivery service :)</code></p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#packers" class="page__taxonomy-item" rel="tag">packers</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#pwn" class="page__taxonomy-item" rel="tag">Pwn</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-06-04T00:00:00+05:30">June 4, 2021</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/pwn/3-bof/" class="pagination--pager" title="pwnable.kr - bof
+">Previous</a>
+    
+    
+      <a href="/pwn/2-passcode/" class="pagination--pager" title="pwnable.kr - passcode
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Monish Kumar. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

