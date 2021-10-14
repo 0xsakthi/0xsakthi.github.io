@@ -1,0 +1,24 @@
+# main links
+main:
+  - title: "HTB"
+    url: /htb
+  - title: "Pwn Challenges"
+    url: /pwn
+  - title: "Binary Exploitation"
+    url: /binexp
+  - title: "Exploit Development"
+    url: /expdev
+  - title: "All Categories"
+    url: /categories
+  - title: "CVE"
+    url: /cve
+  - title: "Tags"
+    url: /tags
+  # - title: "Sample Posts"
+  #   url: /year-archive/
+  # - title: "Sample Collections"
+  #   url: /collection-archive/
+  # - title: "Sitemap"
+  #   url: /sitemap/
+  # - title: "Quick-Start Guide"
+  # url: https://google.com
