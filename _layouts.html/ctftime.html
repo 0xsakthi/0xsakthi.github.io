@@ -15,7 +15,7 @@ layout: archive
 {% for i in (1..categories_max) reversed %}
   {% for category in site.categories %}
     {% if category[1].size == i %}
-    {% if category[0] == "Pwn" %}
+    {% if category[0] == "CTF-Time" %}
       <section id="{{ category[0] | slugify | downcase }}" class="taxonomy__section">
         <div class="entries-{{ page.entries_layout | default: 'list' }}">
           {% for post in category.last %}
