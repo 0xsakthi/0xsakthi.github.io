@@ -1,6 +1,6 @@
 ---
 title: "OSCP-PlayGround"
-layout: binexp
+layout: pg
 permalink: /pg/
 author_profile: true
 ---
