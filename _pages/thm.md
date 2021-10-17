@@ -1,6 +1,6 @@
 ---
 title: "Tryhackme Walkthroughs"
-layout: pwn
+layout: thm
 permalink: /thm/
 author_profile: true
 ---
