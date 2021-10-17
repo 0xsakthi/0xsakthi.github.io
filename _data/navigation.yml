@@ -2,7 +2,7 @@
 main:
   - title: "HTB"
     url: /htb
-  - title: "Tryhackme Walkthroughs"
+  - title: "Tryhackme"
     url: /thm
   - title: "OSCP-PlayGround"
     url: /pg
