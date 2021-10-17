@@ -1,6 +1,6 @@
 ---
-title: "My CVE Blogs"
+title: "Ctf-Time"
 layout: cve
-permalink: /cve/
+permalink: /ctf/
 author_profile: true
 ---
