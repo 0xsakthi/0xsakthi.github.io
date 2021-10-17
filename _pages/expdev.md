@@ -1,6 +1,6 @@
 ---
-title: "Exploit Development"
-layout: expdev
-permalink: /expdev/
+title: "Ctf-Time"
+layout: Ctf-Time
+permalink: /ctf/
 author_profile: true
 ---
