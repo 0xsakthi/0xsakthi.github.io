@@ -2,12 +2,12 @@
 main:
   - title: "HTB"
     url: /htb
-  - title: "Pwn Challenges"
-    url: /pwn
-  - title: "Binary Exploitation"
-    url: /binexp
-  - title: "Exploit Development"
-    url: /expdev
+  - title: "Tryhackme Walkthroughs"
+    url: /thm
+  - title: "OSCP-PlayGround"
+    url: /pg
+  - title: "Ctf-Time"
+    url: /ctf
   - title: "All Categories"
     url: /categories
   - title: "CVE"
