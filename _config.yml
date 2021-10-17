@@ -16,11 +16,11 @@ minimal_mistakes_skin    : "dark" # "air", "aqua", "contrast", "dark", "dirt", "
 
 # Site Settings
 locale                   : "en-US"
-title                    : "aidenpearce369"
+title                    : "0xsakthi"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
-name                     : "Monish Kumar"
-description              : "Cybersecurity - Exploit Development - Binary Exploitation - Pwn"
+name                     : "Sakthi"
+description              : "Cybersecurity - Boot2root - Web - Cryptography"
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -93,33 +93,33 @@ analytics:
 
 # Site Author
 author:
-  name             : "Monish Kumar"
+  name             : "Sakthi"
   avatar           : /assets/images/site_data/avatar.png # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Security Analyst and Youtuber   "
-  location         : "Chennai, India"
+  bio              : "Ctf Player and Blogger  "
+  location         : "India"
   email            :
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:driftmonianonymous@gmail.com"
+      url: "mailto:hacko2852@gmail.com"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/aidenpearce369"
+      url: "https://twitter.com/Hackone8"
     - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
       #url: "https://facebook.com/"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
-      url: "https://www.linkedin.com/in/aidenmonish/"
+      url: "https://www.linkedin.com/in/0xsakthi"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/aidenpearce369"
+      url: "https://github.com/0xsakthi"
     - label: "Youtube"
       icon: "fab fa-fw fa-youtube"
-      url: "https://youtube.com/c/ExploitEverything"
+      #url: "https://youtube.com/c/ExploitEverything"
 
 # Site Footer
 footer:
