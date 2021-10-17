@@ -1,6 +1,6 @@
 ---
 title: "Ctf-Time"
-layout: Ctf-Time
+layout: ctf
 permalink: /ctf/
 author_profile: true
 ---
