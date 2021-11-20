@@ -1,5 +1,5 @@
 ---
-title: "Pg - Blue"
+title: "Programming - Blue"
 classes: wide
 tag: 
   - "OSCP Box"
