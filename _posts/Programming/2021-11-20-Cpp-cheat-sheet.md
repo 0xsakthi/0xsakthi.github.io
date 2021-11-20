@@ -2,15 +2,12 @@
 title: "Programming - Blue"
 classes: wide
 tag: 
-  - "OSCP Box"
-  - "Eternal Blue Exploit"
-  - "Windows Box"
-  - "Windows VAPT"
-  - "MS17-010"
-  - "OSCP Prep"
+  - "Cpp"
+  - "Cheat-sheet"
+  - "DSA"
 header:
-  teaser: /assets/images/htb/htb.png
-ribbon: green
+  teaser: /assets/images/cpp.png
+ribbon: Blue
 description: "Writeup for HTB - Blue"
 categories:
   - pg
