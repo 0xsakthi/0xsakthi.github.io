@@ -7,9 +7,9 @@ tag:
   - "DSA"
 header:
   teaser: /assets/images/cpp.png
-ribbon: Blue
+ribbon: Sky Blue
 description: "Writeup for HTB - Blue"
 categories:
   - pg
 ---
-# hi bavan 
+
