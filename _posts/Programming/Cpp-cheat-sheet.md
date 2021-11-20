@@ -13,5 +13,5 @@ header:
 ribbon: green
 description: "Writeup for HTB - Blue"
 categories:
-  - Pg
+  - pg
 ---
