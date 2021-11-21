@@ -7,7 +7,7 @@ tag:
   - "DSA"
 header:
   teaser: /assets/images/cpp.png
-ribbon: Sky Blue
+ribbon: Neon
 description: "CheatSheet - Cpp"
 categories:
   - pg
