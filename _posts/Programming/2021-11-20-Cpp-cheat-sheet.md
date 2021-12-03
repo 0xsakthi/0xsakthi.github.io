@@ -39,3 +39,26 @@ int main(){
 	return 0;
 }
 ```
+# vectors 
+``` cpp
+#include <bits/stdc++.h>
+#include <vector>
+using namespace std;
+
+int main(){
+	vector<int> v;
+	int n = 8;
+	v = {1,2,3};
+	int sum = 0;
+	while(!v.empty()){ //empty() returns true or false value
+		sum += v.back(); //back() returns last value of array
+		v.pop_back(); //pop_back() to delete last value of array
+	}
+	cout << sum; //output is 6
+	cout << v.front(); //output is 1(it returns front value)
+	v.insert(v.end(),9); //we can insert the value in end of the array
+	v.insert(v.begin(),4); // we can insert the value in begin of the array
+	cout << v.back(); //9
+	cout << v.front();//4
+}
+```
