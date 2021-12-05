@@ -84,10 +84,38 @@ select distinct CITY from STATION where mod(ID,2)=0 order by CITY;
 # Weather Observation Station 4
 *Find the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table.*
 
-*The STATION table is described as follows:
+*The STATION table is described as follows:*
 ![image](https://user-images.githubusercontent.com/82046832/143676584-db0e667a-49ca-4aca-8ff3-b06b7298d108.png)
 
-``sql
+```sql
 select count(CITY) - count(distinct(CITY)) from STATION;
 ```
+# Weather Observation Station 6
 
+*Query the list of CITY names starting with vowels (i.e., a, e, i, o, or u) from STATION. Your result cannot contain duplicates.*
+
+*Input Format*
+
+*The STATION table is described as follows:*
+![image](https://user-images.githubusercontent.com/82046832/144748429-ef81c79f-c484-4616-ae84-9ce16c680864.png)
+
+```sql
+select distinct CITY from STATION where CITY like "a%" or CITY like "e%" or CITY like "i%" or CITY like "o%" or CITY like "u%"; 
+```
+# Weather Observation Station 7
+*Query the list of CITY names ending with vowels (a, e, i, o, u) from STATION. Your result cannot contain duplicates.*
+![image](https://user-images.githubusercontent.com/82046832/144748525-393d15f7-3859-4512-8567-825f0ee75351.png)
+```sql
+select distinct CITY from STATION where CITY like "%a" or CITY like "%e" or CITY like "%i" or CITY like "%o" or CITY like "%u";
+```
+# Weather Observation Station 8
+*Query the list of CITY names from STATION which have vowels (i.e., a, e, i, o, and u) as both their first and last characters. Your result cannot contain duplicates.*
+![image](https://user-images.githubusercontent.com/82046832/144748780-6e4e9047-9701-40cb-8e64-ced23a1a4864.png)
+```sql
+select distinct CITY from STATION where (CITY like "a%" or  CITY like "e%" or  CITY like "i%" or  CITY like "o%" or  CITY like "u%") and  (CITY like "%a" or  CITY like "%e" or  CITY like "%i" or  CITY like "%o" or  CITY like "%u")
+```
+# Weather Observation Station 9
+*Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates*
+```sql
+select distinct CITY from STATION where not (city like "a%" or city like "e%" or city like "i%" or city like "o%" or city like "u%");
+```
