@@ -94,8 +94,6 @@ select count(CITY) - count(distinct(CITY)) from STATION;
 
 *Query the list of CITY names starting with vowels (i.e., a, e, i, o, or u) from STATION. Your result cannot contain duplicates.*
 
-*Input Format*
-
 *The STATION table is described as follows:*
 ![image](https://user-images.githubusercontent.com/82046832/144748429-ef81c79f-c484-4616-ae84-9ce16c680864.png)
 
@@ -118,4 +116,23 @@ select distinct CITY from STATION where (CITY like "a%" or  CITY like "e%" or  C
 *Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates*
 ```sql
 select distinct CITY from STATION where not (city like "a%" or city like "e%" or city like "i%" or city like "o%" or city like "u%");
+```
+# Weather Observation Station 10
+*Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.*
+```sql
+select distinct CITY from STATION where not(CITY like "%a" or CITY like "%e" or CITY like "%i" or CITY like "%o" or CITY like "%u");
+```
+# Weather Observation Station 11
+*Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. Your result cannot contain duplicates.*
+
+![image](https://user-images.githubusercontent.com/82046832/144753865-c3e67899-c3ad-4cbe-88c0-e32c8baf1de0.png)
+
+```sql
+select distinct CITY from STATION where (not (CITY like "a%" or CITY like "e%" or CITY like "i%" or CITY like "o%" or CITY like "u%")) or (not (CITY like "%a" or CITY like "%e" or CITY like "%i" or CITY like "%o" or CITY like "%u"));
+```
+# Weather Observation Station 12
+*Query the list of CITY names from STATION that do not start with vowels and do not end with vowels. Your result cannot contain duplicates.*
+
+```sql
+select distinct CITY from STATION where (not (CITY like "a%" or CITY like "e%" or CITY like "i%" or CITY like "o%" or CITY like "u%")) and (not (CITY like "%a" or CITY like "%e" or CITY like "%i" or CITY like "%o" or CITY like "%u"));
 ```
