@@ -136,3 +136,10 @@ select distinct CITY from STATION where (not (CITY like "a%" or CITY like "e%" o
 ```sql
 select distinct CITY from STATION where (not (CITY like "a%" or CITY like "e%" or CITY like "i%" or CITY like "o%" or CITY like "u%")) and (not (CITY like "%a" or CITY like "%e" or CITY like "%i" or CITY like "%o" or CITY like "%u"));
 ```
+# Employee Salaries
+![image](https://user-images.githubusercontent.com/82046832/144755400-c9f3c49b-daa8-4ba9-88a2-981d8c336f0d.png)
+![image](https://user-images.githubusercontent.com/82046832/144755408-830e345e-0158-45b0-ae31-f47143cf3955.png)
+ ```sql
+  select name from Employee where salary>2000 and months<10;
+ ```
+ # 
